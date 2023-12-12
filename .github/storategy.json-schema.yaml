@@ -4,8 +4,6 @@ required:
 - version
 - platforms
 - imgname
-- tags
-- dir
 properties:
   name:
     type: string
