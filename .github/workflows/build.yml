@@ -86,7 +86,7 @@ jobs:
     - name: Dockle scan
       uses: erzz/dockle-action@v1
       with:
-        image: "${{ env.IMAGE }}-test:${{ matrix.tags[0] }}"
+        image: "${{ env.IMAGE_REPOSITORY_DIR }}/${{ matrix.imgname }}-test:${{ matrix.tags[0] }}"
         exit-code: '1'
         failure-threshold: WARN
         accept-keywords: key
