@@ -1,4 +1,4 @@
-# CloudNativePG Full
+# CloudNativePG Configured
 
 A PostgreSQL image for [CloudNativePG](https://cloudnative-pg.io/) Cluster
 with some extensions.
