@@ -1,4 +1,4 @@
-FROM postgis/postgis:16-3.4 as builder
+FROM postgis/postgis:16-3.4 as timescaledb-layer
 
 # Install timescaledb 2.x
 RUN apt-get update \
@@ -21,6 +21,8 @@ LABEL name="PostgreSQL + PostGIS + Some Extensions Container Images" \
       summary="PostgreSQL + Some Extensions Container images." \
       description="This Docker image contains PostgreSQL, Barman Cloud based and some extensions on Postgres 16"
 
-COPY --from=builder /usr /usr
-COPY --from=builder /var /var
-COPY --from=builder /lib /lib
+COPY --from=timescaledb-layer / /
+
+# Change the uid of postgres to 26
+RUN usermod -u 26 postgres
+USER 26
