@@ -17,7 +17,7 @@ jobs:
         name: ["CloudNativePG Configured"]
         version: ["16"]
         platforms: ["linux/amd64"]
-        tags: ["latest","16"]
+        tags: ["16"]
         dir: ["cloudnativepg-configured/16"]
         file: ["cloudnativepg-configured/16/Dockerfile"]
     name: ${{ matrix.name }}
