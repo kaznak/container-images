@@ -28,7 +28,7 @@ jq '
     dir: ($root.dir // $defaults.dir),
     files: {
         dockerfile: ($root.files.dockerfile // $defaults.files.dockerfile),
-        dockleignore ($root.files.dockleignore // $defaults.files.dockleignore)
+        dockleignore: ($root.files.dockleignore // $defaults.files.dockleignore)
     }
 }
 '   |
