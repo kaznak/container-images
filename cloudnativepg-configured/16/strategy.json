@@ -1,0 +1,9 @@
+{
+    "name": "CloudNativePG Configured",
+    "version": "16",
+    "platforms": ["linux/amd64"],
+    "imgname": "cloudnativepg-configured",
+    "tags": ["16"],
+    "dir": "cloudnativepg-configured/16",
+    "file": "cloudnativepg-configured/16/Dockerfile"
+}

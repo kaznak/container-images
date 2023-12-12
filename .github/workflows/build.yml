@@ -10,16 +10,26 @@ env:
   IMAGE_REPOSITORY_DIR: "ghcr.io/${{ github.repository_owner }}"
 
 jobs:
+  generate-jobs:
+    name: Generate Jobs
+    runs-on: ubuntu-22.04
+    outputs:
+      strategy: ${{ steps.generate-jobs.outputs.strategy }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Generate Jobs
+        id: generate-jobs
+        shell: bash
+        run: |
+          cat \
+            cloudnativepg-configured/16/strategy.json \
+            |
+          bash .github/generate-strategy.sh
+
   build:
-    strategy:
-      matrix:
-        name: ["CloudNativePG Configured"]
-        version: ["16"]
-        platforms: ["linux/amd64"]
-        tagname: ["cloudnativepg-configured"]
-        tags: [["16"]]
-        dir: ["cloudnativepg-configured/16"]
-        file: ["cloudnativepg-configured/16/Dockerfile"]
+    needs: generate-jobs
+    strategy: ${{ fromJson(needs.generate-jobs.outputs.strategy) }}
     name: ${{ matrix.name }}
     runs-on: ubuntu-22.04
     permissions:

@@ -1,0 +1,35 @@
+type: object
+required:
+- name
+- version
+- platforms
+- imgname
+- tags
+- dir
+- file
+properties:
+  name:
+    type: string
+    description: The display name of the image
+  version:
+    type: string
+    description: The version of the image
+  platforms:
+    type: array
+    description: The platforms the image supports
+    items:
+      type: string
+  imgname:
+    type: string
+    description: The name of the image
+  tags:
+    type: array
+    description: The tags of the image
+    items:
+      type: string
+  dir:
+    type: string
+    description: The directory of the Dockerfile
+  file:
+    type: string
+    description: The file path of the Dockerfile
