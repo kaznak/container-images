@@ -21,4 +21,6 @@ LABEL name="PostgreSQL + PostGIS + Some Extensions Container Images" \
       summary="PostgreSQL + Some Extensions Container images." \
       description="This Docker image contains PostgreSQL, Barman Cloud based and some extensions on Postgres 16"
 
-COPY --from=builder / /
+COPY --from=builder /usr /usr
+COPY --from=builder /var /var
+COPY --from=builder /lib /lib
