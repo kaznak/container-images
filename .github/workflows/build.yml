@@ -4,12 +4,6 @@ on:
   push:
     branches:
       - main # shoud be removed
-    paths:
-      - .github/generated-strategy.sh
-      - .github/workflows/build.yml
-      - cloudnativepg-configured/**/*
-    paths-ignore:
-      - '**/*.md'
   workflow_dispatch:
 
 env:
