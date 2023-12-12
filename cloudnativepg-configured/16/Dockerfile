@@ -1,4 +1,14 @@
-FROM postgis/postgis:16-3.4 as timescaledb-layer
+FROM ghcr.io/cloudnative-pg/postgis:16
+
+USER root
+
+# Do not split the description, otherwise we will see a blank space in the labels
+LABEL name="PostgreSQL + PostGIS + Some Extensions Container Images" \
+      vendor="The CloudNativePG Contributors" \
+      version="${PG_VERSION}" \
+      release="16" \
+      summary="PostgreSQL + Some Extensions Container images." \
+      description="This Docker image contains PostgreSQL, Barman Cloud based and some extensions on Postgres 16"
 
 # Install timescaledb 2.x
 RUN apt-get update \
@@ -11,18 +21,5 @@ RUN apt-get update \
     && 	rm -fr /tmp/* \
     && 	rm -rf /var/lib/apt/lists/*
 
-FROM ghcr.io/cloudnative-pg/postgis:16
-
-# Do not split the description, otherwise we will see a blank space in the labels
-LABEL name="PostgreSQL + PostGIS + Some Extensions Container Images" \
-      vendor="The CloudNativePG Contributors" \
-      version="${PG_VERSION}" \
-      release="16" \
-      summary="PostgreSQL + Some Extensions Container images." \
-      description="This Docker image contains PostgreSQL, Barman Cloud based and some extensions on Postgres 16"
-
-COPY --from=timescaledb-layer / /
-
 # Change the uid of postgres to 26
-RUN usermod -u 26 postgres
 USER 26
