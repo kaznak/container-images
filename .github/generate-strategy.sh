@@ -8,15 +8,28 @@ set -eu
 
 jq '
 . as $root |
-.platforms | .[] |
+($root.dir // $root.imgname + "/" + $root.version) as $dir |
+{
+    platforms: ($root.platforms // ["linux/amd64"]),
+    tags: ($root.tags // [$root.version]),
+    dir: $dir,
+    files: {
+        dockerfile: ($dir + "/Dockerfile"),
+        dockleignore: ($dir + "/.dockleignore")
+    }
+} as $defaults |
+.platforms // $defaults.platforms | .[] | . as $platform |
 {
     name: $root.name,
     version: $root.version,
-    platform: .,
+    platform: $platform,
     imgname: $root.imgname,
-    tags: $root.tags,
-    dir: $root.dir,
-    file: $root.file,
+    tags: ($root.tags // $defaults.tags),
+    dir: ($root.dir // $defaults.dir),
+    files: {
+        dockerfile: ($root.files.dockerfile // $defaults.files.dockerfile),
+        dockleignorefile: ($root.files.dockleignore // $defaults.files.dockleignore)
+    }
 }
 '   |
 jq -s '

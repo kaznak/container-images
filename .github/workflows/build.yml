@@ -88,6 +88,12 @@ jobs:
         load: true
         tags: ${{ env.TAGS }}
 
+    - name: Setup dockle
+      env:
+        dockleignore: ${{ matrix.files.dockleignore }}
+      run: |
+        cp $dockleignore .
+
     - name: Dockle scan
       uses: erzz/dockle-action@v1
       with:
@@ -101,7 +107,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: ${{ matrix.dir }}
-        file: ${{ matrix.file }}
+        file: ${{ matrix.files.dockerfile }}
         platforms: ${{ matrix.platforms }}
         push: true
         tags: ${{ env.TAGS }}

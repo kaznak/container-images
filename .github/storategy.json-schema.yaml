@@ -6,7 +6,6 @@ required:
 - imgname
 - tags
 - dir
-- file
 properties:
   name:
     type: string
@@ -30,6 +29,12 @@ properties:
   dir:
     type: string
     description: The directory of the Dockerfile
-  file:
-    type: string
-    description: The file path of the Dockerfile
+  files:
+    type: object
+    properties:
+      dockerfile:
+        type: string
+        description: The file name of the Dockerfile
+      dockleignore:
+        type: string
+        description: The file path of the dockleignore file
