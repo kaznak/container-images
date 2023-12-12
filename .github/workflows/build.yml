@@ -25,7 +25,7 @@ jobs:
           cat \
             cloudnativepg-configured/16/strategy.json \
             |
-          bash .github/generate-strategy.sh
+          bash .github/generate-strategy.sh >> $GITHUB_OUTPUT
 
   build:
     needs: generate-jobs
