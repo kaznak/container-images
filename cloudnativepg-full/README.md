@@ -11,4 +11,7 @@ Extensions:
 
 ## References
 
+based on:
+
+- [cloudnative-pg/postgis-containers](https://github.com/cloudnative-pg/postgis-containers)
 - [imusmanmalik/cloudnative-pg-timescaledb-postgis-containers](https://github.com/imusmanmalik/cloudnative-pg-timescaledb-postgis-containers)
