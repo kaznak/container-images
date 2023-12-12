@@ -9,8 +9,8 @@ on:
 env:
   IMAGE_REPOSITORY_DIR: "ghcr.io/${{ github.repository_owner }}"
   DOCKER_CONTENT_TRUST: 0
-  # CIS-DI-0005 recommends enable DOCKER_CONTENT_TRUST, but I disabled it becase of:
-  # Set up QEMU(docker/setup-qemu-action@v3It) raises
+  # CIS-DI-0005 recommends enable DOCKER_CONTENT_TRUST,
+  # but I disabled it becase Set up QEMU(docker/setup-qemu-action@v3It) raises
   # # /usr/bin/docker pull tonistiigi/binfmt:latest
   # # Error: remote trust data does not exist for docker.io/tonistiigi/binfmt: notary.docker.io does not have trust data for docker.io/tonistiigi/binfmt
 
