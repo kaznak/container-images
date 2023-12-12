@@ -3,7 +3,10 @@ name: Continuous Delivery
 on:
   push:
     branches:
-      - main
+      - main # shoud be removed
+    paths:
+      - .github/workflows/build.yml
+      - cloudnativepg-configured/**/*
   workflow_dispatch:
 
 env:
@@ -48,7 +51,7 @@ jobs:
 
     - name: Docker meta
       env:
-        IMAGE: ${{ env.IMAGE_REPOSITORY_DIR }}/${{ matrix.tagname }}
+        IMAGE: ${{ env.IMAGE_REPOSITORY_DIR }}/${{ matrix.imgname }}
         TAGS: ${{ toJson(matrix.tags) }}
       run: |
         RESULT=""
