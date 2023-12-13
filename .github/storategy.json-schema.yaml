@@ -1,24 +1,24 @@
 type: object
 required:
 - name
-- version
-- platforms
 - imgname
+- variant
+- platforms
 properties:
   name:
     type: string
     description: The display name of the image
-  version:
+  imgname:
     type: string
-    description: The version of the image
+    description: The name of the image
+  variant:
+    type: string
+    description: The variant of the image
   platforms:
     type: array
     description: The platforms the image supports
     items:
       type: string
-  imgname:
-    type: string
-    description: The name of the image
   tags:
     type: array
     description: The tags of the image

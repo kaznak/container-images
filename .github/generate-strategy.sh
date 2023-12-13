@@ -8,10 +8,10 @@ set -eu
 
 jq '
 . as $root |
-($root.dir // $root.imgname + "/" + $root.version) as $dir |
+($root.dir // $root.imgname + "/" + $root.variant) as $dir |
 {
     platforms: ($root.platforms // ["linux/amd64"]),
-    tags: ($root.tags // [$root.version]),
+    tags: ($root.tags // [$root.variant]),
     dir: $dir,
     files: {
         dockerfile: ($dir + "/Dockerfile"),
@@ -21,7 +21,7 @@ jq '
 .platforms // $defaults.platforms | .[] | . as $platform |
 {
     name: $root.name,
-    version: $root.version,
+    variant: $root.variant,
     platform: $platform,
     imgname: $root.imgname,
     tags: ($root.tags // $defaults.tags),

@@ -5,7 +5,7 @@ with some extensions.
 
 Extensions:
 
-- CloudNativePG base
+- CloudNativePG base image
 - PostGIS(CloudNativePG image)
 - [TimescaleDB](https://www.timescale.com/)
   - [Install TimescaleDB on Linux](https://docs.timescale.com/self-hosted/latest/install/installation-linux/)
