@@ -51,9 +51,10 @@ jobs:
         platforms: ${{ matrix.platforms }}
 
     - name: Generate and set Tags
+      env:
+        MATRIX: ${{ toJson(matrix) }}
       run: |
-        echo "${{ toJson(matrix) }}"  \
-        | bash .github/matrix-to-tag.sh ${IMAGE_REPOSITORY_DIR}/ \
+        bash .github/matrix-to-tag.sh ${IMAGE_REPOSITORY_DIR}/ <<<${MATRIX} \
         | tee -a $GITHUB_ENV
 
     - name: Set up Docker Buildx
