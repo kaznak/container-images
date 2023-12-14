@@ -52,7 +52,8 @@ jobs:
 
     - name: Generate and set Tags
       run: |
-        bash .github/matrix-to-tag.sh ${IMAGE_REPOSITORY_DIR}/ <<< "${{ toJson(matrix) }}" \
+        echo "${{ toJson(matrix) }}"  \
+        | bash .github/matrix-to-tag.sh ${IMAGE_REPOSITORY_DIR}/ \
         | tee -a $GITHUB_ENV
 
     - name: Set up Docker Buildx
