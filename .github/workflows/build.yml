@@ -28,7 +28,7 @@ jobs:
         shell: bash
         run: |
           cat */*/strategy.json \
-          | bash .github/generate-strategy.sh \
+          | bash .github/generate-strategy.sh ${IMAGE_REPOSITORY_DIR}/ \
           | { echo -n "strategy=" ; jq -c . ; } \
           | tee -a $GITHUB_OUTPUT
 
@@ -50,13 +50,6 @@ jobs:
       with:
         platforms: ${{ matrix.platforms }}
 
-    - name: Generate and set Tags
-      env:
-        MATRIX: ${{ toJson(matrix) }}
-      run: |
-        bash .github/matrix-to-tag.sh ${IMAGE_REPOSITORY_DIR}/ <<<${MATRIX} \
-        | tee -a $GITHUB_ENV
-
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
@@ -74,7 +67,7 @@ jobs:
         file: ${{ matrix.file }}
         push: false
         load: true
-        tags: ${{ env.TAGS }}
+        tags: ${{ join(matrix.tags) }}
 
     - name: Setup dockle
       env:
@@ -85,7 +78,7 @@ jobs:
     - name: Dockle scan
       uses: erzz/dockle-action@v1
       with:
-        image: "${{ env.IMAGE_REPOSITORY_DIR }}/${{ matrix.imgname }}:${{ matrix.tags[0] }}"
+        image: "${{ matrix.tags[0] }}"
         exit-code: '1'
         failure-threshold: WARN
         accept-keywords: key
@@ -98,4 +91,4 @@ jobs:
         file: ${{ matrix.files.dockerfile }}
         platforms: ${{ matrix.platforms }}
         push: true
-        tags: ${{ env.TAGS }}
+        tags: ${{ join(matrix.tags) }}
