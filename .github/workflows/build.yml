@@ -64,7 +64,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: ${{ matrix.dir }}
-        file: ${{ matrix.filesProcessed }}
+        file: ${{ matrix.filesProcessed.dockerfile }}
         push: false
         load: true
         tags: ${{ join(matrix.tags) }}
