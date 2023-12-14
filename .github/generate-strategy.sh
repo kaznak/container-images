@@ -25,7 +25,8 @@ jq '
     files: {
         dockerfile: ($tmp.dir + "/Dockerfile"),
         dockleignore: ($tmp.dir + "/.dockleignore")
-    }
+    },
+    buildArgs: {}
 } as $defaults |
 .platforms // $defaults.platforms | .[] | . as $platform |
 {
@@ -40,7 +41,8 @@ jq '
         dockerfile: ($root.files.dockerfile // $defaults.files.dockerfile),
         dockleignore: ($root.files.dockleignore // $defaults.files.dockleignore)
     },
-    buildArgs: ($root.buildArgs | to_entries | map("\(.key)=\(.value)")),
+    buildArgs: ($root.buildArgs // $defaults.buildArgs),
+    buildArgsArr: (($root.buildArgs // $defaults.buildArgs) | to_entries | map("\(.key)=\(.value)"))
 }
 '   |
 jq -s '
