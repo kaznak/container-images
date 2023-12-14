@@ -27,12 +27,10 @@ jobs:
         id: generate-jobs
         shell: bash
         run: |
-          cat \
-            cloudnativepg-configured/16/strategy.json \
-            |
-          bash .github/generate-strategy.sh   |
-          { echo -n "strategy=" ; jq -c . ; } |
-          tee -a $GITHUB_OUTPUT
+          cat */*/strategy.json \
+          | bash .github/generate-strategy.sh \
+          | { echo -n "strategy=" ; jq -c . ; } \
+          | tee -a $GITHUB_OUTPUT
 
   build:
     needs: generate-jobs
@@ -52,22 +50,10 @@ jobs:
       with:
         platforms: ${{ matrix.platforms }}
 
-    - name: Docker meta
-      env:
-        IMAGE: ${{ env.IMAGE_REPOSITORY_DIR }}/${{ matrix.imgname }}
-        TAGS: ${{ toJson(matrix.tags) }}
+    - name: Generate and set Tags
       run: |
-        RESULT=""
-        for tag in $(jq -r '.[]' <<< "${TAGS}")
-        do
-          RESULT="${RESULT},${IMAGE}-test:${tag}"
-          # If we are running the pipeline in the main branch images are pushed in both -testing and PROD repo
-          if [ "${GITHUB_REF#refs/heads/}" == main ]
-          then
-            RESULT="${RESULT},${IMAGE}:${tag}"
-          fi
-        done
-        echo "TAGS=${RESULT%,}" >> $GITHUB_ENV
+        bash .github/matrix-to-tag.sh $IMAGE_REPOSITORY_DIR <<< "${{ toJson(matrix) }}" \
+        | tee -a $GITHUB_ENV
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
