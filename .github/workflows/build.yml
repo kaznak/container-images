@@ -67,7 +67,7 @@ jobs:
         file: ${{ matrix.file }}
         push: false
         load: true
-        tags: ${{ join(matrix.tags,',') }}
+        tags: ${{ join(matrix.tags) }}
 
     - name: Setup dockle
       env:
