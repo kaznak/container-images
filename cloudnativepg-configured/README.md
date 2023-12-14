@@ -27,6 +27,7 @@ spec:
     initdb:
       postInitTemplateSQL:
         - CREATE EXTENSION timescaledb;
+        - CREATE EXTENSION timescaledb_toolkit;
         - CREATE EXTENSION postgis;
         - CREATE EXTENSION postgis_topology;
         - CREATE EXTENSION fuzzystrmatch;
