@@ -14,32 +14,35 @@ repository_with_trailing_slash=$1
 jq '
 . as $root |
 {
-    dir: ($root.dir // $root.imgname + "/" + $root.variant),
-    imgtags: ($root.imgtags // [$root.variant])
+    dir: ($root.imgname + "/" + $root.variant),
+    imgtags: [$root.variant]
 } as $tmp |
 {
-    platforms: ($root.platforms // ["linux/amd64"]),
     imgtags: $tmp.imgtags,
-    tags: ($tmp.imgtags | map("'$repository_with_trailing_slash'\($root.imgname):\(.)")),
+    tags: (($root.imgtags // $tmp.imgtags) | map("'$repository_with_trailing_slash'\($root.imgname):\(.)")),
+    platforms: ($root.platforms // ["linux/amd64"]),
     dir: $tmp.dir,
     files: {
-        dockerfile: ($tmp.dir + "/Dockerfile"),
-        dockleignore: ($tmp.dir + "/.dockleignore")
+        dockerfile: "Dockerfile",
+        dockleignore: ".dockleignore"
     },
     buildArgs: {}
 } as $defaults |
-.platforms // $defaults.platforms | .[] | . as $platform |
 {
     name: $root.name,
-    variant: $root.variant,
-    platform: $platform,
     imgname: $root.imgname,
-    imgtags: $defaults.imgtags,
+    variant: $root.variant,
+    imgtags: ($root.imgtags // $defaults.imgtags),
     tags: ($root.tags // $defaults.tags),
+    platforms: ($root.platforms // $defaults.platforms),
     dir: ($root.dir // $defaults.dir),
     files: {
         dockerfile: ($root.files.dockerfile // $defaults.files.dockerfile),
         dockleignore: ($root.files.dockleignore // $defaults.files.dockleignore)
+    },
+    filesProcessed: {
+        dockerfile: (($root.dir // $defaults.dir) + "/" + ($root.files.dockerfile // $defaults.files.dockerfile)),
+        dockleignore: (($root.dir // $defaults.dir) + "/" + ($root.files.dockleignore // $defaults.files.dockleignore))
     },
     buildArgs: ($root.buildArgs // $defaults.buildArgs),
     buildArgsProcessed: (($root.buildArgs // $defaults.buildArgs) | to_entries | map("\(.key)=\(.value)") | join("\n"))

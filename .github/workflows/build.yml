@@ -64,7 +64,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: ${{ matrix.dir }}
-        file: ${{ matrix.file }}
+        file: ${{ matrix.filesProcessed }}
         push: false
         load: true
         tags: ${{ join(matrix.tags) }}
@@ -72,7 +72,7 @@ jobs:
 
     - name: Setup dockle
       env:
-        dockleignore: ${{ matrix.files.dockleignore }}
+        dockleignore: ${{ matrix.filesProcessed.dockleignore }}
       run: |
         cp $dockleignore .
 
@@ -89,8 +89,8 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: ${{ matrix.dir }}
-        file: ${{ matrix.files.dockerfile }}
-        platforms: ${{ matrix.platforms }}
+        file: ${{ matrix.filesProcessed.dockerfile }}
+        platforms: ${{ join(matrix.platforms) }}
         push: true
         tags: ${{ join(matrix.tags) }}
         build-args: ${{ matrix.buildArgsProcessed }}
