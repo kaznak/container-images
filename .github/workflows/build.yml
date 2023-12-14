@@ -35,7 +35,7 @@ jobs:
   build:
     needs: generate-jobs
     strategy: ${{ fromJson(needs.generate-jobs.outputs.strategy) }}
-    name: ${{ matrix.name }}
+    name: ${{ matrix.name }} ${{ matrix.tags[0] }}
     runs-on: ubuntu-22.04
     permissions:
       contents: read
