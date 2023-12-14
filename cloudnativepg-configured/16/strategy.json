@@ -1,6 +1,6 @@
 {
     "name": "CloudNativePG Configured",
-    "imgname": "cloudnativepg-configured",
     "variant": "16",
+    "imgname": "cloudnativepg-configured",
     "platforms": ["linux/amd64"]
 }
