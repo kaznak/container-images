@@ -29,7 +29,8 @@ jq '
     files: {
         dockerfile: ($root.files.dockerfile // $defaults.files.dockerfile),
         dockleignore: ($root.files.dockleignore // $defaults.files.dockleignore)
-    }
+    },
+    buildArgs: ($root.buildArgs | to_entries | map("\(.key)=\(.value)")),
 }
 '   |
 jq -s '
