@@ -68,7 +68,7 @@ jobs:
         push: false
         load: true
         tags: ${{ join(matrix.tags) }}
-        build-args: ${{ join(matrix.buildArgsArr,'\n') }}
+        build-args: ${{ matrix.buildArgsProcessed }}
 
     - name: Setup dockle
       env:
@@ -93,4 +93,4 @@ jobs:
         platforms: ${{ matrix.platforms }}
         push: true
         tags: ${{ join(matrix.tags) }}
-        build-args: ${{ join(matrix.buildArgsArr,'\n') }}
+        build-args: ${{ matrix.buildArgsProcessed }}

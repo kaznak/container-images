@@ -42,7 +42,7 @@ jq '
         dockleignore: ($root.files.dockleignore // $defaults.files.dockleignore)
     },
     buildArgs: ($root.buildArgs // $defaults.buildArgs),
-    buildArgsArr: (($root.buildArgs // $defaults.buildArgs) | to_entries | map("\(.key)=\(.value)"))
+    buildArgsProcessed: (($root.buildArgs // $defaults.buildArgs) | to_entries | map("\(.key)=\(.value)") | join("\n"))
 }
 '   |
 jq -s '
