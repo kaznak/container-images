@@ -14,14 +14,10 @@ repository_with_trailing_slash=$1
 jq '
 . as $root |
 {
-    dir: ($root.imgname + "/" + $root.variant),
-    imgtags: [$root.variant]
-} as $tmp |
-{
-    imgtags: $tmp.imgtags,
-    tags: (($root.imgtags // $tmp.imgtags) | map("'$repository_with_trailing_slash'\($root.imgname):\(.)")),
+    imgtags: [$root.variant],
+    tags: (($root.imgtags // [$root.variant]) | map("'$repository_with_trailing_slash'\($root.imgname):\(.)")),
     platforms: ($root.platforms // ["linux/amd64"]),
-    dir: $tmp.dir,
+    dir: ($root.imgname + "/" + $root.variant),
     files: {
         dockerfile: "Dockerfile",
         dockleignore: ".dockleignore"
