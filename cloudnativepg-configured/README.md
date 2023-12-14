@@ -9,6 +9,7 @@ Extensions:
 - PostGIS(CloudNativePG image)
 - [TimescaleDB](https://www.timescale.com/)
   - [Install TimescaleDB on Linux](https://docs.timescale.com/self-hosted/latest/install/installation-linux/)
+- [TimescaleDB Toolkit](https://docs.timescale.com/timescaledb/latest/how-to-guides/install-timescaledb-toolkit/)([src](https://github.com/timescale/timescaledb-toolkit))
 
 ## How to use
 
