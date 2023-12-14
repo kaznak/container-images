@@ -1,5 +1,9 @@
 {
     "cSpell.words": [
-        "pgrx"
+        "cloudnativepg",
+        "cnpg",
+        "pgrx",
+        "postgis",
+        "timescaledb"
     ]
 }
