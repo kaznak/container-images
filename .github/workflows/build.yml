@@ -60,6 +60,12 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: debug
+      env:
+        tags: ${{ join(matrix.tags) }}
+      run: |
+        echo $tags
+
     - name: Build and load
       uses: docker/build-push-action@v5
       with:
