@@ -1,0 +1,11 @@
+{
+    "name": "pgrx build environment",
+    "imgname": "pgrx-build",
+    "variant": "debian_bullseye",
+    "platforms": ["linux/amd64"],
+    "tags": ["debian_bullseye-pg16-pgrx0.10.2"],
+    "envs": {
+        "PG_MAJOR_VERSION": "16",
+        "PGRX_VERSION": "0.10.2"
+    }
+}

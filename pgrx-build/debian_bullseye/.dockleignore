@@ -1,0 +1,2 @@
+# Disabel health check, because this is just a build environment
+CIS-DI-0006
