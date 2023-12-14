@@ -1,2 +1,6 @@
+# This is a image for build. Thus I leave the apt related files in this image.
+CIS-DI-0007
+DKL-LI-0003
+DKL-DI-0005
 # Disabel health check, because this is just a build environment
 CIS-DI-0006
