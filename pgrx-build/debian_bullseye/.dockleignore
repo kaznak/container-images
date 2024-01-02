@@ -1,4 +1,7 @@
-# This is a image for build. Thus I leave the apt related files in this image.
+# This is a image for build.
+## I gave sudo privilege to the user, because I want to use sudo in the build process.
+DKL-DI-0001
+## I left the apt related files in this image for further build or install.
 CIS-DI-0007
 DKL-LI-0003
 DKL-DI-0005
