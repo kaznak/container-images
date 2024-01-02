@@ -18,8 +18,8 @@ RUN apt-get update \
     && apt-get update \
     && apt-get install -y "timescaledb-2-postgresql-${PG_MAJOR}" "timescaledb-toolkit-postgresql-${PG_MAJOR}" \
     && apt-get remove -y lsb-release wget \
-    && 	rm -fr /tmp/* \
-    && 	rm -rf /var/lib/apt/lists/*
+    && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
+
 
 # Change the uid of postgres to 26
 USER 26
