@@ -63,3 +63,9 @@ RUN echo "Running cargo install --version =${PGRX_VERSION} --force cargo-pgrx $C
 
 # Initialize cargo pgrx so that we can run the tests
 RUN cargo pgrx init --pg$PG_MAJOR_VERSION=$(which pg_config)
+
+# Run as root to map host user to container user
+USER root
+COPY entrypoint.sh /
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/bin/bash"]
