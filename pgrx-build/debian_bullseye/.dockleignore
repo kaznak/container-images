@@ -1,4 +1,6 @@
 # This is a image for build.
+## Run as root to map host user to container user.
+CIS-DI-0001
 ## I gave sudo privilege to the user, because I want to use sudo in the build process.
 DKL-DI-0001
 ## I left the apt related files in this image for further build or install.
