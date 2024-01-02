@@ -14,6 +14,7 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main" >> /e
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 RUN apt-get update -y --fix-missing
 RUN apt-get install -y \
+  sudo  \
   build-essential \
   curl \
   clang \
@@ -35,6 +36,8 @@ RUN chmod a+rwx `$(which pg_config) --pkglibdir` \
 
 # Running pgrx and tests require a non-root user
 RUN useradd --create-home --shell /bin/bash rust
+RUN echo "rust ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/rust
+
 WORKDIR /checkout
 RUN chown -R rust:rust /checkout
 COPY --chown=rust:rust . /checkout
