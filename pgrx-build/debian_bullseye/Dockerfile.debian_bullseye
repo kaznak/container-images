@@ -29,10 +29,15 @@ RUN apt-get install -y \
   zlib1g-dev \
   && rm -rf /var/lib/apt/lists/*
 
-RUN wget https://github.com/mikefarah/yq/releases/download/v4.40.5/yq_linux_amd64.tar.gz -O - |  \
+RUN mkdir -p /tmp/yq-install && \
+    cd /tmp/yq-install && \
+    wget https://github.com/mikefarah/yq/releases/download/v4.40.5/yq_linux_amd64.tar.gz -O - |  \
     tar xz && \
     mv yq_linux_amd64 /usr/bin/yq && \
-    chmod 755 /usr/bin/yq
+    chmod 755 /usr/bin/yq &&  \
+    bash install-man-page.sh && \
+    cd /root && \
+    rm -rf /tmp/yq-install
 
 # Set up permissions so that the rust user below can create extensions
 RUN chmod a+rwx `$(which pg_config) --pkglibdir` \
