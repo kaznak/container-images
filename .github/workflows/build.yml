@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main # shoud be removed
+  schedule:
+    - cron: '0 0 1 * *' # monthly build
   workflow_dispatch:
 
 env:
