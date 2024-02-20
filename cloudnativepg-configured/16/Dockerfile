@@ -6,7 +6,7 @@ USER root
 LABEL name="PostgreSQL + PostGIS + Some Extensions Container Images" \
       vendor="The CloudNativePG Contributors" \
       version="${PG_VERSION}" \
-      release="16" \
+      release="30" \
       summary="PostgreSQL + Some Extensions Container images." \
       description="This Docker image contains PostgreSQL, Barman Cloud based and some extensions on Postgres 16"
 
