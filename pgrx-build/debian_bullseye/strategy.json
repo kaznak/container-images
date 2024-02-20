@@ -9,7 +9,8 @@
     },
     "buildArgs": {
         "PG_MAJOR_VERSION": "16",
-        "PGRX_VERSION": "0.10.2"
+        "PGRX_VERSION": "0.10.2",
+        "YQ_VERSION": "4.12.2"
     }
 }
 {
@@ -23,6 +24,7 @@
     },
     "buildArgs": {
         "PG_MAJOR_VERSION": "16",
-        "PGRX_VERSION": "0.11.2"
+        "PGRX_VERSION": "0.11.2",
+        "YQ_VERSION": "4.12.2"
     }
 }

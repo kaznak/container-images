@@ -6,6 +6,9 @@ ENV PG_MAJOR_VERSION=${PG_MAJOR_VERSION}
 ARG PGRX_VERSION
 ENV PGRX_VERSION=${PGRX_VERSION}
 
+ARG YQ_VERSION
+ENV YQ_VERSION=${YQ_VERSION}
+
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update
@@ -31,7 +34,7 @@ RUN apt-get install -y \
 
 RUN mkdir -p /tmp/yq-install && \
     cd /tmp/yq-install && \
-    wget https://github.com/mikefarah/yq/releases/download/v4.40.5/yq_linux_amd64.tar.gz -O - |  \
+    wget https://github.com/mikefarah/yq/releases/download/v${YQ_VERSION}/yq_linux_amd64.tar.gz -O - |  \
     tar xz && \
     mv yq_linux_amd64 /usr/bin/yq && \
     chmod 755 /usr/bin/yq &&  \
