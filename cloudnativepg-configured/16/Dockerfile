@@ -20,6 +20,22 @@ RUN apt-get update \
     && apt-get remove -y lsb-release wget \
     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
+# Install pgTAP 1.3.2
+RUN apt-get update \
+    && apt-get install -y unzip wget make gcc patch \
+    && wget https://api.pgxn.org/dist/pgtap/1.3.2/pgtap-1.3.2.zip \
+    && unzip pgtap-1.3.2.zip \
+    && cd pgtap-1.3.2 \
+    && make \
+    && make install \
+    && cd .. \
+    && rm -rf pgtap-1.3.2 \
+    && rm pgtap-1.3.2.zip \
+    && apt-get remove -y unzip wget patch make gcc  patch \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 # build locale
 RUN localedef -i ja_JP -c -f UTF-8 -A /usr/share/locale/locale.alias ja_JP.UTF-8
 
