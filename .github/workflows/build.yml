@@ -35,6 +35,9 @@ jobs:
           | tee -a $GITHUB_OUTPUT
 
   build:
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
     needs: generate-jobs
     strategy: ${{ fromJson(needs.generate-jobs.outputs.strategy) }}
     name: ${{ matrix.name }} ${{ matrix.imgtags[0] }}
