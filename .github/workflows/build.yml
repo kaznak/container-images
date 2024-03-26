@@ -36,7 +36,7 @@ jobs:
 
   build:
     concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
+      group: ${{ github.workflow }}-${{ github.ref }}-${{ matrix.imgname }}-${{ matrix.imgtags[0] }}
       cancel-in-progress: true
     needs: generate-jobs
     strategy: ${{ fromJson(needs.generate-jobs.outputs.strategy) }}
