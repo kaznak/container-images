@@ -18,6 +18,8 @@ RUN apt-get update \
     && apt-get update \
     && apt-get install -y "timescaledb-2-postgresql-${PG_MAJOR}" "timescaledb-toolkit-postgresql-${PG_MAJOR}" \
     && apt-get remove -y lsb-release wget \
+    && apt-get autoremove -y \
+    && apt-get clean \
     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
 # Install pgTAP 1.3.2
@@ -29,12 +31,11 @@ RUN apt-get update \
     && make \
     && make install \
     && cd .. \
-    && rm -rf pgtap-1.3.2 \
-    && rm pgtap-1.3.2.zip \
-    && apt-get remove -y unzip wget patch make gcc  patch \
+    && rm -rf pgtap-1.3.2 pgtap-1.3.2.zip \
+    && apt-get remove -y unzip wget patch make gcc patch \
     && apt-get autoremove -y \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
 # build locale
 RUN localedef -i ja_JP -c -f UTF-8 -A /usr/share/locale/locale.alias ja_JP.UTF-8
