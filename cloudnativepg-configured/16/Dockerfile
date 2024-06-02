@@ -22,16 +22,17 @@ RUN apt-get update \
     && apt-get clean \
     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
-# Install pgTAP 1.3.2
+# Install pgTAP 1.3.3
 RUN apt-get update \
     && apt-get install -y unzip wget make gcc patch \
-    && wget https://api.pgxn.org/dist/pgtap/1.3.2/pgtap-1.3.2.zip \
-    && unzip pgtap-1.3.2.zip \
-    && cd pgtap-1.3.2 \
+    && wget https://github.com/theory/pgtap/releases/download/v1.3.3/pgTAP-1.3.3.zip    \
+    && unzip pgTAP-1.3.3.zip \
+    && cd pgTAP-1.3.3 \
     && make \
     && make install \
+    && make installcheck    \
     && cd .. \
-    && rm -rf pgtap-1.3.2 pgtap-1.3.2.zip \
+    && rm -rf pgTAP-1.3.3 pgTAP-1.3.3.zip \
     && apt-get remove -y unzip wget patch make gcc patch \
     && apt-get autoremove -y \
     && apt-get clean \
