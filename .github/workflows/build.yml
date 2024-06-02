@@ -32,16 +32,20 @@ jobs:
           | xargs --verbose --no-run-if-empty --max-args=1 dirname  \
           | sort -u \
           | tee changed-dirs.lst
-      - name: Generate Jobs
-        id: generate-jobs
-        shell: bash
+      - name: Extract Target strategy.json
         run: |
           if grep -q '^\.github' changed-dirs.lst ; then
             cat */*/strategy.json
           else
-            grep -v '^\.(github|vscode)' changed-dirs.lst \
+            grep -Ev '^\.(github|vscode)' changed-dirs.lst \
             | awk '{ print $0 "/strategy.json" }'
           fi  \
+          | tee target-strategy.lst
+      - name: Generate Jobs
+        id: generate-jobs
+        shell: bash
+        run: |
+          xargs -t cat < target-strategy.lst  \
           | bash .github/generate-strategy.sh ${IMAGE_REPOSITORY_DIR}/ \
           | { echo -n "strategy=" ; jq -c . ; } \
           | tee -a $GITHUB_OUTPUT
