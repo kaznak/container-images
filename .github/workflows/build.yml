@@ -35,10 +35,10 @@ jobs:
       - name: Extract Target strategy.json
         run: |
           if grep -q '^\.github' changed-dirs.lst ; then
-            cat */*/strategy.json
+            ls */*/strategy.json
           else
             grep -Ev '^\.(github|vscode)' changed-dirs.lst \
-            | awk '{ print $0 "/strategy.json" }'
+            | awk '{ print $0 "/strategy.json" }
           fi  \
           | tee target-strategy.lst
       - name: Generate Jobs
