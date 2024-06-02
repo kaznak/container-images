@@ -23,24 +23,20 @@ jobs:
     outputs:
       strategy: ${{ steps.generate-jobs.outputs.strategy }}
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - run: echo "branch_name=$(echo ${GITHUB_REF#refs/heads/})" | tee -a $GITHUB_ENV
-        id: get_branch
-      - run: git fetch --all
-      - run: git diff --name-only origin/main...HEAD | tee changed_files.txt
-        id: get_diff_files
+      - uses: actions/checkout@v4
+      - uses: tj-actions/changed-files@v44
+        id: changed-files
+      - name: Changed Directories
+        run: |
+          echo ${{ steps.changed-files.outputs.all_changed_files }} \
+          | xargs --verbose --no-run-if-empty --max-args=1 dirname  \
+          | sort -u \
+          | tee changed-dirs.lst
       - name: Generate Jobs
         id: generate-jobs
         shell: bash
         run: |
-          xargs -t -n1 dirname < changed_files.txt \
-          | sort -u \
-          | grep -v '^.github|^.vscode' \
-          | awk '{ print $0 "/strategy.json" }' \
-          | xargs -t cat \
+          cat */*/strategy.json \
           | bash .github/generate-strategy.sh ${IMAGE_REPOSITORY_DIR}/ \
           | { echo -n "strategy=" ; jq -c . ; } \
           | tee -a $GITHUB_OUTPUT
