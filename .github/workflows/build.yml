@@ -39,7 +39,10 @@ jobs:
       group: ${{ github.workflow }}-${{ github.ref }}-${{ matrix.imgname }}-${{ matrix.imgtags[0] }}
       cancel-in-progress: true
     needs: generate-jobs
-    strategy: ${{ fromJson(needs.generate-jobs.outputs.strategy) }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJson(needs.generate-jobs.outputs.strategy) }}
     name: ${{ matrix.name }} ${{ matrix.imgtags[0] }}
     runs-on: ubuntu-22.04
     permissions:

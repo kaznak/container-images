@@ -44,11 +44,4 @@ jq '
     buildArgsProcessed: (($root.buildArgs // $defaults.buildArgs) | to_entries | map("\(.key)=\(.value)") | join("\n"))
 }
 '   |
-jq -s '
-{
-    "fail-fast": false,
-    "matrix": {
-        "include": .,
-    },
-}
-'
+jq -s .
