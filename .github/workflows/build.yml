@@ -38,7 +38,7 @@ jobs:
             ls */*/strategy.json
           else
             grep -Ev '^\.(github|vscode)' changed-dirs.lst \
-            | awk '{ print $0 "/strategy.json" }
+            | awk '{ print $0 "/strategy.json" }'
           fi  \
           | tee target-strategy.lst
       - name: Generate Jobs
