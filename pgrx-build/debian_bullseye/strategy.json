@@ -3,7 +3,7 @@
     "imgname": "pgrx-build",
     "variant": "debian_bullseye",
     "platforms": ["linux/amd64"],
-    "imgtags": ["debian_bullseye-pg16-pgrx0.10.2"],
+    "tags": ["debian_bullseye-pg16-pgrx0.10.2"],
     "files": {
         "dockerfile": "Dockerfile.debian_bullseye"
     },
@@ -18,7 +18,7 @@
     "imgname": "pgrx-build",
     "variant": "debian_bullseye",
     "platforms": ["linux/amd64"],
-    "imgtags": ["debian_bullseye-pg16-pgrx0.11.2"],
+    "tags": ["debian_bullseye-pg16-pgrx0.11.2"],
     "files": {
         "dockerfile": "Dockerfile.debian_bullseye"
     },

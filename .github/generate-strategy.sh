@@ -14,8 +14,8 @@ repository_with_trailing_slash=$1
 jq '
 . as $root |
 {
-    imgtags: [$root.variant],
-    tags: (($root.imgtags // [$root.variant]) | map("'$repository_with_trailing_slash'\($root.imgname):\(.)")),
+    tags: [$root.variant],
+    tagsProcessed: (($root.tags // [$root.variant]) | map("'$repository_with_trailing_slash'\($root.imgname):\(.)")),
     platforms: ($root.platforms // ["linux/amd64"]),
     dir: ($root.imgname + "/" + $root.variant),
     files: {
@@ -28,8 +28,8 @@ jq '
     name: $root.name,
     imgname: $root.imgname,
     variant: $root.variant,
-    imgtags: ($root.imgtags // $defaults.imgtags),
     tags: ($root.tags // $defaults.tags),
+    tagsProcessed: ($root.tagsProcessed // $defaults.tagsProcessed),
     platforms: ($root.platforms // $defaults.platforms),
     dir: ($root.dir // $defaults.dir),
     files: {

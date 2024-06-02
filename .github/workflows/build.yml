@@ -48,14 +48,14 @@ jobs:
 
   build:
     concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}-${{ matrix.imgname }}-${{ matrix.imgtags[0] }}
+      group: ${{ github.workflow }}-${{ github.ref }}-${{ matrix.imgname }}-${{ matrix.tags[0] }}
       cancel-in-progress: true
     needs: generate-jobs
     strategy:
       fail-fast: false
       matrix:
         include: ${{ fromJson(needs.generate-jobs.outputs.strategy) }}
-    name: ${{ matrix.name }} ${{ matrix.imgtags[0] }}
+    name: ${{ matrix.name }} ${{ matrix.tags[0] }}
     runs-on: ubuntu-22.04
     permissions:
       contents: read
@@ -87,7 +87,7 @@ jobs:
         file: ${{ matrix.filesProcessed.dockerfile }}
         push: false
         load: true
-        tags: ${{ join(matrix.tags) }}
+        tags: ${{ join(matrix.tagsProcessed) }}
         build-args: ${{ matrix.buildArgsProcessed }}
 
     - name: Setup dockle
@@ -99,7 +99,7 @@ jobs:
     - name: Dockle scan
       uses: erzz/dockle-action@v1
       with:
-        image: "${{ matrix.tags[0] }}"
+        image: "${{ matrix.tagsProcessed[0] }}"
         exit-code: '1'
         failure-threshold: WARN
         accept-keywords: key
@@ -112,5 +112,5 @@ jobs:
         file: ${{ matrix.filesProcessed.dockerfile }}
         platforms: ${{ join(matrix.platforms) }}
         push: true
-        tags: ${{ join(matrix.tags) }}
+        tags: ${{ join(matrix.tagsProcessed) }}
         build-args: ${{ matrix.buildArgsProcessed }}

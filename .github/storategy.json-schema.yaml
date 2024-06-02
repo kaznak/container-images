@@ -36,3 +36,6 @@ properties:
       dockleignore:
         type: string
         description: The file path of the dockleignore file
+  buildArgs:
+    type: object
+    description: key-value maps of Docker build arguments
