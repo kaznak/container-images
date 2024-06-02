@@ -25,11 +25,22 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: echo "branch_name=$(echo ${GITHUB_REF#refs/heads/})" | tee -a $GITHUB_ENV
+        id: get_branch
+      - run: git fetch --all
+      - run: git diff --name-only origin/main...HEAD | tee changed_files.txt
+        id: get_diff_files
       - name: Generate Jobs
         id: generate-jobs
         shell: bash
         run: |
-          cat */*/strategy.json \
+          xargs -t -n1 dirname < changed_files.txt \
+          | sort -u \
+          | grep -v '^.github|^.vscode' \
+          | awk '{ print $0 "/strategy.json" }' \
+          | xargs -t cat \
           | bash .github/generate-strategy.sh ${IMAGE_REPOSITORY_DIR}/ \
           | { echo -n "strategy=" ; jq -c . ; } \
           | tee -a $GITHUB_OUTPUT
