@@ -36,7 +36,12 @@ jobs:
         id: generate-jobs
         shell: bash
         run: |
-          cat */*/strategy.json \
+          if grep -q '^\.github' changed-dirs.lst ; then
+            cat */*/strategy.json
+          else
+            grep -v '^\.(github|vscode)' changed-dirs.lst \
+            | awk '{ print $0 "/strategy.json" }'
+          fi  \
           | bash .github/generate-strategy.sh ${IMAGE_REPOSITORY_DIR}/ \
           | { echo -n "strategy=" ; jq -c . ; } \
           | tee -a $GITHUB_OUTPUT
