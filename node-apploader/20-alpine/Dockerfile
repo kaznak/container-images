@@ -22,6 +22,6 @@ COPY ./entrypoint.sh .
 ENV GIT_REPOSITORY=
 ENV GIT_SSH_KEY=
 ENV NPM=npm
-ENV NODE_ENV=development
+ENV NODE_ENV=production
 
 ENTRYPOINT [ "/home/node/entrypoint.sh" ]
