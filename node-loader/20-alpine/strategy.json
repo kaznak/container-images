@@ -1,0 +1,6 @@
+{
+    "name": "Node.js Application loader",
+    "variant": "20-alpine",
+    "imgname": "node-apploader",
+    "platforms": ["linux/amd64"]
+}
