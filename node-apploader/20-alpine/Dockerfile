@@ -9,7 +9,7 @@ RUN apk update \
     && apk add git \
     && apk cache clean
 
-RUN useradd --create-home --shell /bin/sh node
+RUN adduser -D node
 USER node
 
 WORKDIR /home/node
