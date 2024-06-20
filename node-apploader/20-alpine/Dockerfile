@@ -5,9 +5,8 @@ LABEL name="Node application loader" \
       version="20-alpine" \
       summary="Node that load, install, build and start a project."
 
-RUN apk update \
-    && apk add git \
-    && apk cache clean
+RUN apk update --no-cache \
+    && apk add git
 
 USER node
 
