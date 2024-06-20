@@ -57,6 +57,7 @@ jobs:
       group: ${{ github.workflow }}-${{ github.ref }}-${{ matrix.imgname }}-${{ matrix.tags[0] }}
       cancel-in-progress: true
     needs: generate-jobs
+    if: ${{ needs.generate-jobs.outputs.strategy != '[]'  }}
     strategy:
       fail-fast: false
       matrix:
