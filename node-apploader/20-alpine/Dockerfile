@@ -6,17 +6,22 @@ LABEL name="Node application loader" \
       summary="Node that load, install, build and start a project."
 
 RUN apk update \
-    && apk add --no-cache git \
+    && apk add --no-cache git openssh \
     && apk cache clean
 
 USER node
 
 WORKDIR /home/node
 
-COPY ./entrypoint.npm.sh .
+RUN mkdir ~/.ssh
+RUN ssh-keyscan github.com | tee ~/.ssh/known_hosts
+RUN chmod -R go-rwx ~/.ssh
+
+COPY ./entrypoint.sh .
 
 ENV GIT_REPOSITORY=
 ENV GIT_SSH_KEY=
+ENV NPM=npm
 ENV NODE_ENV=development
 
-ENTRYPOINT [ "entrypoint.npm.sh" ]
+ENTRYPOINT [ "/home/node/entrypoint.sh" ]
