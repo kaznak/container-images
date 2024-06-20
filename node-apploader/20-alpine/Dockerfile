@@ -9,7 +9,6 @@ RUN apk update \
     && apk add git \
     && apk cache clean
 
-RUN adduser -D node
 USER node
 
 WORKDIR /home/node
