@@ -13,8 +13,12 @@ fi
 set -vx
 
 # clone app
+if [ "dummy" = "${GIT_REPOSITORY:-"dummy"}" ] ; then
+    exit 1
+fi
 git clone "${GIT_REPOSITORY}" app
 cd app
+git switch "${GIT_BRANCH:-"main"}"
 
 # check package manager
 if [ -s "./package-lock.json" ] ; then

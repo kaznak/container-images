@@ -20,6 +20,7 @@ RUN chmod -R go-rwx ~/.ssh
 COPY ./entrypoint.sh .
 
 ENV GIT_REPOSITORY=
+ENV GIT_BRANCH=main
 ENV GIT_SSH_KEY=
 ENV NPM=npm
 ENV NODE_ENV=production
