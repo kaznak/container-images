@@ -56,10 +56,12 @@ case "$NPM" in
             case "$NODE_ENV" in
                 production)
                     npm install --omit dev
+                    git log -1 --format='%H'
                     exec npm run start
                     ;;
                 # development)
                 *)
+                    git log -1 --format='%H'
                     exec npm run dev
                     ;;
             esac
