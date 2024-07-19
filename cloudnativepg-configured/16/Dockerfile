@@ -79,13 +79,21 @@ RUN apt-get update \
 
 # Install pgroonga
 RUN apt-get update  \
-    && apt-get install -y lsb-release wget \
-    && echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -c -s)-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list \
-    && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -    \
-    && apt-get update   \
-    && apt-get install -y -V postgresql-16-pgdg-pgroonga    \
-    && apt-get install -y -V groonga-tokenizer-mecab    \
-    && apt-get remove -y lsb-release wget \
+    && apt-get install -y   \
+        wget \
+        libmsgpack-dev  \
+        postgresql-server-dev-16    \
+    && wget https://packages.groonga.org/source/pgroonga/pgroonga-3.2.1.tar.gz  \
+    && tar xvf pgroonga-3.2.1.tar.gz    \
+    && cd pgroonga-3.2.1    \
+    && make HAVE_MSGPACK=1  \
+    && make instasll    \
+    && cd ..    \
+    && rm -rf pgroonga-3.2.1*   \
+    && apt-get remove -y    \
+        wget \
+        libmsgpack-dev  \
+        postgresql-server-dev-16    \
     && apt-get autoremove -y \
     && apt-get clean \
     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
