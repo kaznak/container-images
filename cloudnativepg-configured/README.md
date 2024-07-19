@@ -37,7 +37,11 @@ pgadmin4 のヘルプにデバッガの使い方についての記載がある�
 
 ### [PGroonga](https://pgroonga.github.io/ja/)
 
-インストール https://pgroonga.github.io/ja/install/
+インストール:
+
+- https://groonga.org/ja/docs/install/debian.html
+  - roonga-tokenizer-filter-stem は存在しないようだ(20240720)
+- こちらは古いので無視する事 → https://pgroonga.github.io/ja/install/
 
 ## How to use
 
