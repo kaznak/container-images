@@ -82,8 +82,8 @@ RUN apt-get update  \
     && apt-get install -y   \
         wget \
         build-essential \
+        groonga postgresql-server-dev-16    \
         libmsgpack-dev  \
-        postgresql-server-dev-16    \
     && wget https://packages.groonga.org/source/pgroonga/pgroonga-3.2.1.tar.gz  \
     && tar xvf pgroonga-3.2.1.tar.gz    \
     && cd pgroonga-3.2.1    \
@@ -94,8 +94,8 @@ RUN apt-get update  \
     && apt-get remove -y    \
         wget \
         build-essential \
+        groonga postgresql-server-dev-16    \
         libmsgpack-dev  \
-        postgresql-server-dev-16    \
     && apt-get autoremove -y \
     && apt-get clean \
     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
