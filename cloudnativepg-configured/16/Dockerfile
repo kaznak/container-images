@@ -32,7 +32,7 @@ RUN apt-get update \
 # Install pldebugger
 # # https://github.com/EnterpriseDB/pldebugger
 RUN apt-get update \
-    && apt-get install -y unzip wget make gcc patch \
+    && apt-get install -y unzip wget make gcc postgresql-server-dev-16    \
     && wget https://github.com/EnterpriseDB/pldebugger/archive/refs/tags/v1.8.zip    \
     && unzip v1.8.zip \
     && cd pldebugger-1.8 \
@@ -41,7 +41,7 @@ RUN apt-get update \
     # && make installcheck    \ # if server is not running, installcheck fails.
     && cd .. \
     && rm -rf pldebugger-1.8/ v1.8.zip \
-    && apt-get remove -y unzip wget patch make gcc patch \
+    && apt-get remove -y unzip wget patch make gcc postgresql-server-dev-16 \
     && apt-get autoremove -y \
     && apt-get clean \
     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
