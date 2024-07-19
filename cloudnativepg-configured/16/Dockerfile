@@ -78,19 +78,20 @@ RUN apt-get update \
     && rm -rf /etc/apt/sources.list.d/timescaledb.list  \
     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
-# # Install pgroonga
-# RUN apt-get update  \
-#     && apt-get install -y lsb-release wget \
-#     && echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -c -s)-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list \
-#     && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -    \
-#     && apt-get update   \
-#     && apt-get remove -y wget \
-#     && apt install -y -V "postgresql-16-${PG_MAJOR}-pgroonga" "groonga-tokenizer-mecab" \
-#     # TODO # E: Unable to locate package postgresql-16-16-pgroonga
-#     && apt-get remove -y lsb-release wget \
-#     && apt-get clean \
-#     && rm -rf /etc/apt/sources.list.d/pgdg.list \
-#     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
+# Install pgroonga
+RUN true || \
+    apt-get update  \
+    && apt-get install -y lsb-release wget \
+    && echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -c -s)-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list \
+    && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -    \
+    && apt-get update   \
+    && apt-get remove -y wget \
+    && apt install -y -V "postgresql-16-${PG_MAJOR}-pgroonga" "groonga-tokenizer-mecab" \
+    # TODO # E: Unable to locate package postgresql-16-16-pgroonga
+    && apt-get remove -y lsb-release wget \
+    && apt-get clean \
+    && rm -rf /etc/apt/sources.list.d/pgdg.list \
+    && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
 # Install postgresql packages
 RUN yes | /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh   \
