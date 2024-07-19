@@ -84,6 +84,7 @@ RUN apt-get update  \
     && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -    \
     && apt-get update   \
     && apt-get install -y -V postgresql-16-pgdg-pgroonga    \
+    && apt-get install -y -V groonga-tokenizer-mecab    \
     && apt-get remove -y lsb-release wget \
     && apt-get autoremove -y \
     && apt-get clean \
