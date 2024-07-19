@@ -80,7 +80,7 @@ RUN apt-get update \
 
 # Install pgroonga
 # # disabling because of following error # E: Unable to locate package postgresql-16-16-pgroonga
-RUN true || \
+RUN true || { \
     apt-get update  \
     && apt-get install -y lsb-release wget \
     && echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -c -s)-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list \
@@ -91,7 +91,7 @@ RUN true || \
     && apt-get remove -y lsb-release wget \
     && apt-get clean \
     && rm -rf /etc/apt/sources.list.d/pgdg.list \
-    && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
+    && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf }
 
 # Install postgresql packages
 RUN yes | /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh   \
