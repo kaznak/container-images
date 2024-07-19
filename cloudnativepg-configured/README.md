@@ -25,6 +25,8 @@ Base image: [CloudNativePG PostGIS image](https://github.com/cloudnative-pg/post
 
 ### [pldebugger](https://github.com/EnterpriseDB/pldebugger)
 
+https://pgsqldeepdive.blogspot.com/2013/05/plpgsqldebugger.html
+
 ### [multicorn2](https://github.com/pgsql-io/multicorn2)
 
 ## How to use
