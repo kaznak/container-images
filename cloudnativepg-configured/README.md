@@ -23,6 +23,8 @@ Base image: [CloudNativePG PostGIS image](https://github.com/cloudnative-pg/post
 
 ### [pgTAP](https://pgtap.org/)
 
+### [pldebugger](https://github.com/EnterpriseDB/pldebugger)
+
 ### [multicorn2](https://github.com/pgsql-io/multicorn2)
 
 ## How to use
