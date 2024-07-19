@@ -27,6 +27,12 @@ Base image: [CloudNativePG PostGIS image](https://github.com/cloudnative-pg/post
 
 https://pgsqldeepdive.blogspot.com/2013/05/plpgsqldebugger.html
 
+pgadmin4 のヘルプにデバッガの使い方についての記載がある。
+
+スーパーユーザーでないと create extension できない
+
+スーパーユーザーでないとブレークポイントの設定が出来ない
+
 ### [multicorn2](https://github.com/pgsql-io/multicorn2)
 
 ## How to use
