@@ -75,14 +75,11 @@ RUN apt-get update \
     && apt-get remove -y lsb-release wget \
     && apt-get autoremove -y \
     && apt-get clean \
-    && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
+    && echo /etc/apt/sources.list.d/timescaledb.list /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
 # Install pgroonga
 RUN apt-get update  \
     && apt-get install -y lsb-release wget \
-    && lsb_release -c -s    \
-    && wget "https://packages.groonga.org/debian/groonga-apt-source-latest-$(lsb_release -c -s).deb"  \
-    && apt-get install -y -V ./groonga-apt-source-latest-$(lsb_release -c -s).deb   \
     && echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -c -s)-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list  \
     && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -    \
     && apt-get update   \
@@ -90,7 +87,7 @@ RUN apt-get update  \
     && apt-get remove -y lsb-release wget \
     && apt-get autoremove -y \
     && apt-get clean \
-    && echo ./groonga-apt-source-latest-$(lsb_release -c -s).deb /tmp/* /var/lib/apt/lists/* | xargs rm -rf
+    && echo /etc/apt/sources.list.d/pgdg.list /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
 # Install postgresql packages
 RUN yes | /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh   \
