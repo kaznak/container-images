@@ -78,21 +78,11 @@ RUN apt-get update \
     && echo /etc/apt/sources.list.d/timescaledb.list /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
 # Install pgroonga
-# RUN apt-get update  \
-#     && apt-get install -y lsb-release wget \
-#     && echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -c -s)-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list  \
-#     && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -    \
-#     && apt-get update   \
-#     # E: Unable to locate package postgresql-16-pgdg-pgroonga
-#     && apt-get install -y -V "postgresql-${PG_MAJOR}-pgdg-pgroonga" "groonga-tokenizer-mecab"   \
-#     && apt-get remove -y lsb-release wget \
-#     && apt-get autoremove -y \
-#     && apt-get clean \
-#     && echo /etc/apt/sources.list.d/pgdg.list /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 RUN apt-get update  \
     && apt-get install -y groonga   \
     && apt-get install -y groonga-tokenizer-mecab   \
-    && apt-get install -y groonga-tokenizer-filter-stem \
+    # && apt-get install -y groonga-tokenizer-filter-stem \
+    # E: Unable to locate package groonga-tokenizer-filter-stem
     && apt-get autoremove -y \
     && apt-get clean \
     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
