@@ -82,8 +82,8 @@ RUN apt-get update  \
     && apt-get install -y lsb-release wget \
     && wget "https://packages.groonga.org/debian/groonga-apt-source-latest-$(lsb_release -c -s).deb"  \
     && apt-get install -y -V ./groonga-apt-source-latest-$(lsb_release -c -s).deb   \
-    && echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -c -s)-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list  \
-    && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -    \
+    && echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -c -s)-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list  \
+    && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -    \
     && apt-get update   \
     && apt install -y -V "postgresql-${PG_MAJOR}-pgdg-pgroonga" "groonga-tokenizer-mecab"   \
     && apt-get remove -y lsb-release wget \
