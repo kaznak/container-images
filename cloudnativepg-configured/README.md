@@ -35,6 +35,10 @@ pgadmin4 のヘルプにデバッガの使い方についての記載がある�
 
 ### [multicorn2](https://github.com/pgsql-io/multicorn2)
 
+### [PGroonga](https://pgroonga.github.io/ja/)
+
+インストール https://pgroonga.github.io/ja/install/
+
 ## How to use
 
 ```yaml
