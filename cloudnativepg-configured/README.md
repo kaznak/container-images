@@ -57,9 +57,24 @@ spec:
         - CREATE EXTENSION postgis_topology;
         - CREATE EXTENSION fuzzystrmatch;
         - CREATE EXTENSION postgis_tiger_geocoder;
+        - CREATE EXTENSION pg_cron;
+        - CREATE EXTENSION pldbgapi;
   postgresql:
     shared_preload_libraries:
       - timescaledb
+      - pg_cron
+      - plugin_debugger
+    pg_ident:
+      - local postgres app_owner
+    parameters:
+      "pgaudit.log": "all, -misc"
+      "pgaudit.log_catalog": "off"
+      "pgaudit.log_parameter": "on"
+      "pgaudit.log_relation": "on"
+      #
+      "cron.host": ""
+      "cron.database_name": "app"
+      "cron.timezone": "JST"
   storage:
     size: 40Gi
 ```
