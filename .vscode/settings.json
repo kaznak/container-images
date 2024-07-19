@@ -4,7 +4,9 @@
         "cnpg",
         "dockleignore",
         "imgname",
+        "pgaudit",
         "pgrx",
+        "pldbgapi",
         "postgis",
         "timescaledb"
     ]
