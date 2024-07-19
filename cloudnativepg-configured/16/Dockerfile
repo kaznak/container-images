@@ -90,7 +90,9 @@ RUN apt-get update \
 #     && apt-get clean \
 #     && echo /etc/apt/sources.list.d/pgdg.list /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 RUN apt-get update  \
-    && apt-get install -y groonga groonga-tokenizer-mecab groonga-tokenizer-filter-stem \
+    && apt-get install -y groonga   \
+    && apt-get install -y groonga-tokenizer-mecab   \
+    && apt-get install -y groonga-tokenizer-filter-stem \
     && apt-get autoremove -y \
     && apt-get clean \
     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
