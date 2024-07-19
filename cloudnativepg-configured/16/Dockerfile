@@ -13,25 +13,6 @@ LABEL name="PostgreSQL + PostGIS + Some Extensions Container Images" \
 # build locale
 RUN localedef -i ja_JP -c -f UTF-8 -A /usr/share/locale/locale.alias ja_JP.UTF-8
 
-# Install timescaledb 2.x
-RUN apt-get update \
-    && apt-get install -y lsb-release wget \
-    && echo "deb https://packagecloud.io/timescale/timescaledb/debian/ $(lsb_release -c -s) main" | tee /etc/apt/sources.list.d/timescaledb.list \
-    && wget --quiet -O - https://packagecloud.io/timescale/timescaledb/gpgkey | apt-key add - \
-    && apt-get update \
-    && apt-get install -y "timescaledb-2-postgresql-${PG_MAJOR}" "timescaledb-toolkit-postgresql-${PG_MAJOR}" \
-    && apt-get remove -y lsb-release wget \
-    && apt-get autoremove -y \
-    && apt-get clean \
-    && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
-
-# Install pg_cron
-RUN apt-get update \
-    && apt-get install -y postgresql-16-cron \
-    && apt-get autoremove -y \
-    && apt-get clean \
-    && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
-
 # Install pgTAP 1.3.3
 RUN apt-get update \
     && apt-get install -y unzip wget make gcc patch \
@@ -44,6 +25,30 @@ RUN apt-get update \
     && cd .. \
     && rm -rf pgTAP-1.3.3 pgTAP-1.3.3.zip \
     && apt-get remove -y unzip wget patch make gcc patch \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
+
+# Install pldebugger
+# # https://github.com/EnterpriseDB/pldebugger
+RUN apt-get update \
+    && apt-get install -y unzip wget make gcc patch \
+    && wget https://github.com/EnterpriseDB/pldebugger/archive/refs/tags/v1.8.zip    \
+    && unzip v1.8.zip \
+    && cd pldebugger-1.8 \
+    && make \
+    && make install \
+    # && make installcheck    \ # if server is not running, installcheck fails.
+    && cd .. \
+    && rm -rf pldebugger-1.8/ v1.8.zip \
+    && apt-get remove -y unzip wget patch make gcc patch \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
+
+# Install pg_cron
+RUN apt-get update \
+    && apt-get install -y postgresql-16-cron \
     && apt-get autoremove -y \
     && apt-get clean \
     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
@@ -66,6 +71,18 @@ RUN apt-get update  \
         wget clang-11   \
         build-essential libreadline-dev zlib1g-dev flex bison libxml2-dev libxslt-dev libssl-dev libxml2-utils xsltproc   \
         postgresql-server-dev-16    \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
+
+# Install timescaledb 2.x
+RUN apt-get update \
+    && apt-get install -y lsb-release wget \
+    && echo "deb https://packagecloud.io/timescale/timescaledb/debian/ $(lsb_release -c -s) main" | tee /etc/apt/sources.list.d/timescaledb.list \
+    && wget --quiet -O - https://packagecloud.io/timescale/timescaledb/gpgkey | apt-key add - \
+    && apt-get update \
+    && apt-get install -y "timescaledb-2-postgresql-${PG_MAJOR}" "timescaledb-toolkit-postgresql-${PG_MAJOR}" \
+    && apt-get remove -y lsb-release wget \
     && apt-get autoremove -y \
     && apt-get clean \
     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
