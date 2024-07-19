@@ -89,6 +89,11 @@ RUN apt-get update \
 #     && apt-get autoremove -y \
 #     && apt-get clean \
 #     && echo /etc/apt/sources.list.d/pgdg.list /tmp/* /var/lib/apt/lists/* | xargs rm -rf
+RUN apt-get update  \
+    && apt-get install -y groonga groonga-tokenizer-mecab groonga-tokenizer-filter-stem \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
 # Install postgresql packages
 RUN yes | /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh   \
