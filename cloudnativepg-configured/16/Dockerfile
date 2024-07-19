@@ -75,29 +75,20 @@ RUN apt-get update \
     && apt-get remove -y lsb-release wget \
     && apt-get autoremove -y \
     && apt-get clean \
-    && echo /etc/apt/sources.list.d/timescaledb.list /tmp/* /var/lib/apt/lists/* | xargs rm -rf
+    && rm -rf /etc/apt/sources.list.d/timescaledb.list  \
+    && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
 # Install pgroonga
 RUN apt-get update  \
-    && apt-get install -y   \
-        wget \
-        build-essential \
-        groonga postgresql-server-dev-16    \
-        libmsgpack-dev  \
-    && wget https://packages.groonga.org/source/pgroonga/pgroonga-3.2.1.tar.gz  \
-    && tar xvf pgroonga-3.2.1.tar.gz    \
-    && cd pgroonga-3.2.1    \
-    && make HAVE_MSGPACK=1  \
-    && make instasll    \
-    && cd ..    \
-    && rm -rf pgroonga-3.2.1*   \
-    && apt-get remove -y    \
-        wget \
-        build-essential \
-        groonga postgresql-server-dev-16    \
-        libmsgpack-dev  \
+    && apt-get install -y wget \
+    && echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release --codename --short)-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list \
+    && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -    \
+    && apt-get update   \
+    && apt-get remove -y wget \
+    && apt install -y -V "postgresql-16-${PG_MAJOR}-pgroonga" "groonga-tokenizer-mecab" \
     && apt-get autoremove -y \
     && apt-get clean \
+    && rm -rf /etc/apt/sources.list.d/pgdg.list \
     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
 # Install postgresql packages
