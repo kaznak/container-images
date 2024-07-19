@@ -80,13 +80,13 @@ RUN apt-get update \
 
 # Install pgroonga
 RUN apt-get update  \
-    && apt-get install -y wget \
-    && echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release --codename --short)-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list \
+    && apt-get install -y lsb-release wget \
+    && echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -c -s)-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list \
     && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -    \
     && apt-get update   \
     && apt-get remove -y wget \
     && apt install -y -V "postgresql-16-${PG_MAJOR}-pgroonga" "groonga-tokenizer-mecab" \
-    && apt-get autoremove -y \
+    && apt-get remove -y lsb-release wget \
     && apt-get clean \
     && rm -rf /etc/apt/sources.list.d/pgdg.list \
     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
