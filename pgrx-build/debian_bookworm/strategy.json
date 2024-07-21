@@ -15,6 +15,18 @@
     "imgname": "pgrx-build",
     "variant": "debian_bookworm",
     "platforms": ["linux/amd64"],
+    "tags": ["debian_bookworm-pg16-pgrx0.11.3"],
+    "buildArgs": {
+        "PG_MAJOR_VERSION": "16",
+        "PGRX_VERSION": "0.11.3",
+        "YQ_VERSION": "4.41.1"
+    }
+}
+{
+    "name": "pgrx build environment",
+    "imgname": "pgrx-build",
+    "variant": "debian_bookworm",
+    "platforms": ["linux/amd64"],
     "tags": ["debian_bookworm-pg16-pgrx0.11.4"],
     "buildArgs": {
         "PG_MAJOR_VERSION": "16",
