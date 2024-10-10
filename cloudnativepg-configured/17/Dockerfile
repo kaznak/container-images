@@ -43,6 +43,7 @@ RUN apt-get update \
     && apt-get clean \
     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
+# Comment out because of the compile error
 # # Install multicorn2
 # RUN apt-get update  \
 #     && apt-get install -y   \
@@ -65,18 +66,20 @@ RUN apt-get update \
 #     && apt-get clean \
 #     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
-# Install timescaledb 2.x
-RUN apt-get update \
-    && apt-get install -y lsb-release wget \
-    && echo "deb https://packagecloud.io/timescale/timescaledb/debian/ $(lsb_release -c -s) main" | tee /etc/apt/sources.list.d/timescaledb.list \
-    && wget --quiet -O - https://packagecloud.io/timescale/timescaledb/gpgkey | apt-key add - \
-    && apt-get update \
-    && apt-get install -y "timescaledb-2-postgresql-${PG_MAJOR}" "timescaledb-toolkit-postgresql-${PG_MAJOR}" \
-    && apt-get remove -y lsb-release wget \
-    && apt-get autoremove -y \
-    && apt-get clean \
-    && rm -rf /etc/apt/sources.list.d/timescaledb.list  \
-    && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
+# Comment out because of the following error
+# > 6.164 E: Unable to locate package timescaledb-toolkit-postgresql-17
+# # Install timescaledb 2.x
+# RUN apt-get update \
+#     && apt-get install -y lsb-release wget \
+#     && echo "deb https://packagecloud.io/timescale/timescaledb/debian/ $(lsb_release -c -s) main" | tee /etc/apt/sources.list.d/timescaledb.list \
+#     && wget --quiet -O - https://packagecloud.io/timescale/timescaledb/gpgkey | apt-key add - \
+#     && apt-get update \
+#     && apt-get install -y "timescaledb-2-postgresql-${PG_MAJOR}" "timescaledb-toolkit-postgresql-${PG_MAJOR}" \
+#     && apt-get remove -y lsb-release wget \
+#     && apt-get autoremove -y \
+#     && apt-get clean \
+#     && rm -rf /etc/apt/sources.list.d/timescaledb.list  \
+#     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
 # Install pgroonga
 # # disabling because of following error # E: Unable to locate package postgresql-17-17-pgroonga
