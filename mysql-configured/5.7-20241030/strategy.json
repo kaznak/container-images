@@ -1,0 +1,6 @@
+{
+    "name": "MySQL 5.7 Configured",
+    "variant": "5.7-20241030",
+    "imgname": "mysql-5-7-configured",
+    "platforms": ["linux/amd64"]
+}
