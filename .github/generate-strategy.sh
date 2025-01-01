@@ -14,34 +14,32 @@ repository_with_trailing_slash=$1
 jq '
 . as $root |
 {
-    tags: [$root.variant],
-    tagsProcessed: (($root.tags // [$root.variant]) | map("'$repository_with_trailing_slash'\($root.imgname):\(.)")),
-    platforms: ($root.platforms // ["linux/amd64"]),
-    dir: ($root.imgname + "/" + $root.variant),
+    tags: ($root.tags // [$root.variant]),
+    dir: ($root.dir // $root.imgname + "/" + $root.variant),
     files: {
-        dockerfile: "Dockerfile",
-        dockleignore: ".dockleignore"
+        dockerfile: ($root.files.dockerfile // "Dockerfile"),
+        dockleignore: ($root.files.dockleignore //  ".dockleignore")
     },
-    buildArgs: {}
-} as $defaults |
+    buildArgs: ($root.buildArgs // {})
+} as $step1 |
 {
     name: $root.name,
     imgname: $root.imgname,
     variant: $root.variant,
-    tags: ($root.tags // $defaults.tags),
-    tagsProcessed: ($root.tagsProcessed // $defaults.tagsProcessed),
-    platforms: ($root.platforms // $defaults.platforms),
-    dir: ($root.dir // $defaults.dir),
+    tags: $step1.tags,
+    tagsProcessed: ($step1.tags | map("'$repository_with_trailing_slash'\($root.imgname):\(.)")),
+    platforms: ($root.platforms // ["linux/amd64"]),
+    dir: $step1.dir,
     files: {
-        dockerfile: ($root.files.dockerfile // $defaults.files.dockerfile),
-        dockleignore: ($root.files.dockleignore // $defaults.files.dockleignore)
+        dockerfile: $step1.files.dockerfile,
+        dockleignore: $step1.files.dockleignore
     },
     filesProcessed: {
-        dockerfile: (($root.dir // $defaults.dir) + "/" + ($root.files.dockerfile // $defaults.files.dockerfile)),
-        dockleignore: (($root.dir // $defaults.dir) + "/" + ($root.files.dockleignore // $defaults.files.dockleignore))
+        dockerfile: ($step1.dir + "/" + $step1.files.dockerfile),
+        dockleignore: ($step1.dir + "/" + $step1.files.dockleignore)
     },
-    buildArgs: ($root.buildArgs // $defaults.buildArgs),
-    buildArgsProcessed: (($root.buildArgs // $defaults.buildArgs) | to_entries | map("\(.key)=\(.value)") | join("\n"))
+    buildArgs: $step1.buildArgs,
+    buildArgsProcessed: ($step1.buildArgs | to_entries | map("\(.key)=\(.value)") | join("\n"))
 }
 '   |
 jq -s .
