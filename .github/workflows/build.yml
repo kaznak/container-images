@@ -102,10 +102,7 @@ jobs:
         build-args: ${{ matrix.buildArgsProcessed }}
 
     - name: Setup dockle
-      env:
-        dockleignore: ${{ matrix.filesProcessed.dockleignore }}
-      run: |
-        cp $dockleignore .
+      run: cp "${{ matrix.filesProcessed.dockleignore }}" .
 
     - name: Dockle scan
       uses: erzz/dockle-action@v1
