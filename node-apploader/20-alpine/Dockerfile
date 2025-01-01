@@ -13,9 +13,9 @@ USER node
 
 WORKDIR /home/node
 
-RUN mkdir ~/.ssh
-RUN ssh-keyscan github.com | tee ~/.ssh/known_hosts
-RUN chmod -R go-rwx ~/.ssh
+RUN mkdir ~/.ssh \
+    && ssh-keyscan github.com | tee -a ~/.ssh/known_hosts \
+    && chmod -R go-rwx ~/.ssh
 
 COPY ./entrypoint.sh .
 
