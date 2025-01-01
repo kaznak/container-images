@@ -46,6 +46,7 @@ jobs:
             | xargs --no-run-if-empty I% find % -type f -name strategy.json \
             || true
           fi  \
+          | sort -u \
           | tee target-strategy.lst
       - name: Generate Jobs
         id: generate-jobs
