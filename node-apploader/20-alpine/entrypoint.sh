@@ -45,23 +45,24 @@ case "$NPM" in
         ;;
     # npm)
     *)
-        # build and install
-        npm install --verbose --include dev
-        npm run build
-
         # run
         if [ "$@" ] ; then
-            exec npm run "$@"
+            exec "$@"
         else
+            # Default executer
+            git log -1 --format='%H'
+
+            # build and install
+            npm install --verbose --include dev
+            npm run build
+
             case "$NODE_ENV" in
                 production)
                     npm install --omit dev
-                    git log -1 --format='%H'
                     exec npm run start
                     ;;
                 # development)
                 *)
-                    git log -1 --format='%H'
                     exec npm run dev
                     ;;
             esac
