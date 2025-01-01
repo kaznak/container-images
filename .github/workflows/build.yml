@@ -35,11 +35,15 @@ jobs:
       - name: Extract Target strategy.json
         run: |
           if grep -q '^\.github' changed-dirs.lst ; then
-            ls */*/strategy.json
+            # if workflow file changed.
+            find . -type f -name strategy.json
+          elif [ "${{ github.event_name }}" = "schedule" ] ; then
+            # if scheduler dispatched.
+            find . -type f -name strategy.json
           else
+            # scan the changed directories
             grep -Ev '^\.(github|vscode)' changed-dirs.lst \
-            | awk '{ print $0 "/strategy.json" }' \
-            | xargs --no-run-if-empty ls  \
+            | xargs --no-run-if-empty I% find % -type f -name strategy.json \
             || true
           fi  \
           | tee target-strategy.lst
