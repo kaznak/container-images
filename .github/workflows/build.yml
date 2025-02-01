@@ -43,7 +43,7 @@ jobs:
           else
             # scan the changed directories
             grep -Ev '^\.(github|vscode)' changed-dirs.lst \
-            | xargs --no-run-if-empty I% find % -type f -name strategy.json \
+            | xargs --no-run-if-empty -I% find % -type f -name strategy.json \
             || true
           fi  \
           | sort -u \
