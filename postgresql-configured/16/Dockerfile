@@ -54,36 +54,11 @@ RUN ls -d ./pldebugger >> ./del.lst
 RUN cd pldebugger && git checkout v1.5 && USE_PGXS=1 make install && cd ../
 
 ##################################################################
-# install pgrx packages
-# # pgrx requires very log time to build. So, it is placed here.
+# install deb packages
 
-# setup rust/pgrx environment
-RUN curl https://sh.rustup.rs -sSf > rustup-install.sh
-RUN ls ./rustup-install.sh >> ./del.lst
-RUN sh rustup-install.sh -y
-RUN ls -d $HOME/.cargo $HOME/.rustup >> ./del.lst
-
-
-# ulid
-RUN . "$HOME/.cargo/env" && cargo install cargo-pgrx@0.10.2
-RUN . "$HOME/.cargo/env" && RUST_BACKTRACE=full cargo pgrx init
-# RUN . "$HOME/.cargo/env" && export PGRX_HOME=${HOME:-"/root"}/.pgrx
-RUN ls -d $HOME/.pgrx >> ./del.lst
-
-RUN git clone https://github.com/pksunkara/pgx_ulid.git
-RUN ls -d ./pgx_ulid >> ./del.lst
-RUN . "$HOME/.cargo/env" && cd pgx_ulid && git checkout f84954cf63fc8c80d964ac970d9eceed3c791196 && cd ../
-RUN . "$HOME/.cargo/env" && cd pgx_ulid && RUST_BACKTRACE=full cargo pgrx install -c /usr/lib/postgresql/16/bin/pg_config && cd ../
-
-# pg_uuidv7
-RUN . "$HOME/.cargo/env" && cargo install cargo-pgrx@0.11.0
-RUN . "$HOME/.cargo/env" && RUST_BACKTRACE=full cargo pgrx init
-# RUN . "$HOME/.cargo/env" && export PGRX_HOME=${HOME:-"/root"}/.pgrx
-RUN ls -d $HOME/.pgrx >> ./del.lst
-
-RUN git clone https://github.com/craigpastro/pg_uuidv7.git
-RUN ls -d ./pg_uuidv7 >> ./del.lst
-RUN . "$HOME/.cargo/env" && cd pg_uuidv7 && RUST_BACKTRACE=full cargo pgrx install -c /usr/lib/postgresql/16/bin/pg_config && cd ../
+RUN curl -LO https://github.com/kaznak/pgx_uuidv7/releases/download/v0.1.1/pgx-uuidv7-16-amd64-linux-gnu.deb
+RUN ls -d ./pgx-uuidv7-16-amd64-linux-gnu.deb >> ./del.lst
+RUN dpkg -i ./pgx-uuidv7-16-amd64-linux-gnu.deb
 
 ##################################################################
 # clean up build and install environment
