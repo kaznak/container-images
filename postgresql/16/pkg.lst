@@ -1,0 +1,18 @@
+lsb-release # remove
+pgxnclient # remove
+git # remove
+curl # pgrx remove
+wget # remove
+build-essential # pgrx remove
+pkg-config # pgrx remove
+bison # pgrx remove
+flex # pgrx remove
+libreadline-dev # pgrx remove
+libssl-dev # pgrx remove
+libicu-dev # pgrx remove
+zlib1g-dev # pgrx remove
+#
+postgresql-common
+postgresql-server-dev-16
+# if you uninstall postgresql-common and postgresql-server-dev-*, apt removes the postgresql directories.
+libkrb5-dev # pldebugger remove
