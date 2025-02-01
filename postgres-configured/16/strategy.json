@@ -1,6 +1,6 @@
 {
     "name": "PostgreSQL Configured",
     "variant": "16",
-    "imgname": "postgresql-configured",
+    "imgname": "postgres-configured",
     "platforms": ["linux/amd64"]
 }
