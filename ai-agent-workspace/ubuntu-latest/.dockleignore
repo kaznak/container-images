@@ -1,2 +1,4 @@
 # Run as root to map the uid/gid of the home directory.
 CIS-DI-0001
+# No credential files
+CIS-DI-0010
