@@ -33,8 +33,11 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # linuxbrew
-RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-RUN brew update && brew install \
+RUN curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh \
+    | bash -s -- --unattended \
+ && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" \
+ && brew update \
+ && brew install \
     kubectl \
     helm \
     kustomize \
