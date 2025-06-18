@@ -41,7 +41,8 @@ RUN brew update && brew install \
     helmfile \
     sops \
     age \
-    uv
+    uv  \
+    anyenv
 
 USER ubuntu
 
