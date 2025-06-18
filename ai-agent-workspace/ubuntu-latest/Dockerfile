@@ -25,7 +25,6 @@ RUN apt-get update && apt-get install -y \
     iputils-ping \
     dnsutils \
     net-tools \
-    sudo \
     python3 \
     python3-pip \
     ssh \
