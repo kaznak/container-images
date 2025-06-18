@@ -25,6 +25,7 @@ if [ "$uid" -ne 0 ]; then
 fi
 
 if [ -z "$(find "$HOME" -mindepth 1 -print -quit)" ]; then
+    echo "Home directory is empty. Restore backup files..." >&2
     cp -rp /home/$USER-home-backup/. $HOME
 fi
 
