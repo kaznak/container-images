@@ -54,6 +54,7 @@ RUN git clone https://github.com/Homebrew/brew /home/ubuntu/.linuxbrew \
 
 RUN git clone https://github.com/anyenv/anyenv /home/ubuntu/.anyenv \
  && git clone https://github.com/znz/anyenv-update.git /home/ubuntu/.anyenv/plugins/anyenv-update \
+ && echo 'export PATH="$HOME/.anyenv/bin:$PATH"' >> ~/.bashrc \
  && echo 'eval "$(anyenv init -)"' >> ~/.bashrc
 
 RUN anyenv init \
