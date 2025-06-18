@@ -3,8 +3,6 @@ FROM ubuntu:latest
 # Set non-interactive mode for apt
 ENV DEBIAN_FRONTEND=noninteractive
 
-ENV DEFAULT_USER=ubuntu
-
 # Install basic utilities and dependencies
 RUN apt-get update && apt-get install -y \
     tzdata \
@@ -38,11 +36,11 @@ COPY entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 
 # Copy default home directory contents if the home directory is empty
-RUN cp -rp /home/$DEFAULT_USER/. /home/$DEFAULT_USER-home-backup
+RUN cp -rp /home/ubuntu/. /home/ubuntu-home-backup
 
-WORKDIR /home/$DEFAULT_USER
-ENV WORKDIR=/home/$DEFAULT_USER
+WORKDIR /home/ubuntu
+ENV WORKDIR=/home/ubuntu
 
 # Command to run the MCP server
-ENTRYPOINT ["/entrypoint.sh", "$DEFAULT_USER"]
+ENTRYPOINT ["/entrypoint.sh", "ubuntu"]
 CMD ["bash"]
