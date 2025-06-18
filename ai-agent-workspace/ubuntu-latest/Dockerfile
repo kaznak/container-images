@@ -32,7 +32,8 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# linuxbrew
+USER ubuntu
+
 RUN NONINTERACTIVE=1 CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \
  && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" \
  && brew update \
@@ -45,8 +46,6 @@ RUN NONINTERACTIVE=1 CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubuserconte
     age \
     uv  \
     anyenv
-
-USER ubuntu
 
 RUN test -d /home/linuxbrew/.linuxbrew &&   \
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" &&   \
