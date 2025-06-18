@@ -34,9 +34,10 @@ RUN apt-get update && apt-get install -y \
 
 USER ubuntu
 
-RUN NONINTERACTIVE=1 CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \
+RUN git clone https://github.com/Homebrew/brew /home/ubuntu/.linuxbrew \
  && eval "$(/home/ubuntu/.linuxbrew/bin/brew shellenv)" \
- && brew update \
+ && brew update --force --quiet \
+ && chmod -R go-w "$(brew --prefix)/share/zsh" \
  && brew install \
     kubectl \
     helm \
