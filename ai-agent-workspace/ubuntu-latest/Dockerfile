@@ -45,15 +45,12 @@ RUN NONINTERACTIVE=1 CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubuserconte
     sops \
     age \
     uv  \
-    anyenv
-
-RUN test -d /home/linuxbrew/.linuxbrew &&   \
-    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" &&   \
-    echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.bashrc
-RUN helm plugin install https://github.com/databus23/helm-diff
-RUN helm plugin install https://github.com/aslafy-z/helm-git
-RUN helm plugin install https://github.com/hypnoglow/helm-s3.git
-RUN helm plugin install https://github.com/jkroepke/helm-secrets
+    anyenv \
+ && echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.bashrc \
+ && helm plugin install https://github.com/databus23/helm-diff \
+ && helm plugin install https://github.com/aslafy-z/helm-git \
+ && helm plugin install https://github.com/hypnoglow/helm-s3.git \
+ && helm plugin install https://github.com/jkroepke/helm-secrets
 
 USER root
 
