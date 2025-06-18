@@ -62,6 +62,7 @@ RUN anyenv init \
  && anyenv install nodenv
 
 RUN nodenv install 22.16.0 && nodenv global 22.16.0
+RUN npm install -g @anthropic-ai/claude-code
 
 USER root
 
