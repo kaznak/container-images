@@ -34,6 +34,8 @@ RUN apt-get update && apt-get install -y \
 
 USER ubuntu
 
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
 RUN git clone https://github.com/Homebrew/brew /home/ubuntu/.linuxbrew \
  && eval "$(/home/ubuntu/.linuxbrew/bin/brew shellenv)" \
  && brew update --force --quiet \
@@ -52,17 +54,19 @@ RUN git clone https://github.com/Homebrew/brew /home/ubuntu/.linuxbrew \
  && helm plugin install https://github.com/hypnoglow/helm-s3.git \
  && helm plugin install https://github.com/jkroepke/helm-secrets
 
-RUN git clone https://github.com/anyenv/anyenv /home/ubuntu/.anyenv \
- && git clone https://github.com/znz/anyenv-update.git /home/ubuntu/.anyenv/plugins/anyenv-update \
- && /home/ubuntu/.anyenv/bin/anyenv init \
- && echo 'export PATH="$HOME/.anyenv/bin:$PATH"' >> ~/.bashrc \
- && echo 'eval "$(anyenv init -)"' >> ~/.bashrc
+# NVM (Node Version Manager) installation
+ENV BASH_ENV=/home/ubuntu/.bash_env
+ENV NVM_VERSION=v0.40.3
+ENV NVM_DIR=/home/ubuntu/.nvm
+ENV NODE_VERSION=20
 
-RUN anyenv install --init \
- && anyenv install nodenv
-
-RUN nodenv install 22.16.0 && nodenv global 22.16.0
-RUN npm install -g @anthropic-ai/claude-code
+RUN echo '. "${BASH_ENV}"' >> ~/.bashrc
+RUN curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install.sh"  \
+  | PROFILE="${BASH_ENV}" bash \
+ && echo node > /home/ubuntu/.nvmrc
+RUN source $NVM_DIR/nvm.sh \
+ && nvm install $NODE_VERSION \
+ && npm install -g @anthropic-ai/claude-code 
 
 USER root
 
