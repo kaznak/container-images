@@ -1,6 +1,6 @@
 {
     "name": "AI Agent Workspace",
-    "variant": "ubuntu-24",
+    "variant": "ubuntu-latest",
     "imgname": "ai-agent-workspace",
     "platforms": ["linux/amd64"]
 }

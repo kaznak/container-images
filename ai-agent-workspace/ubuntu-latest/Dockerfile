@@ -1,8 +1,7 @@
-FROM ubuntu:24
+FROM ubuntu:latest
 
 # Set non-interactive mode for apt
 ENV DEBIAN_FRONTEND=noninteractive
-ENV NODE_VERSION=22.14.0
 
 ENV DEFAULT_USER=agent
 
