@@ -54,12 +54,13 @@ RUN git clone https://github.com/Homebrew/brew /home/ubuntu/.linuxbrew \
 
 RUN git clone https://github.com/anyenv/anyenv /home/ubuntu/.anyenv \
  && git clone https://github.com/znz/anyenv-update.git /home/ubuntu/.anyenv/plugins/anyenv-update \
- && echo 'export PATH="$HOME/.anyenv/bin:$PATH"' >> ~/.bashrc \
- && /home/ubuntu/.anyenv/bin/anyenv init \
+ && echo 'export PATH="$HOME/.anyenv/bin:$PATH"' >> ~/.bashrc
+
+RUN /home/ubuntu/.anyenv/bin/anyenv init \
  && /home/ubuntu/.anyenv/bin/anyenv install --init \
- && /home/ubuntu/.anyenv/bin/anyenv install nodenv \
- && /home/ubuntu/.anyenv/envs/nodenv/bin/nodenv install 22.16.0 \
- && /home/ubuntu/.anyenv/envs/nodenv/bin/nodenv global 22.16.0
+ && /home/ubuntu/.anyenv/bin/anyenv install nodenv
+
+RUN nodenv install 22.16.0 && nodenv global 22.16.0
 
 USER root
 
