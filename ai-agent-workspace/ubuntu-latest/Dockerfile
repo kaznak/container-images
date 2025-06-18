@@ -35,7 +35,7 @@ RUN apt-get update && apt-get install -y \
 USER ubuntu
 
 RUN NONINTERACTIVE=1 CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \
- && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" \
+ && eval "$(/home/ubuntu/.linuxbrew/bin/brew shellenv)" \
  && brew update \
  && brew install \
     kubectl \
