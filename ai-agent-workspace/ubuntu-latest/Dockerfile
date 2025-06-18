@@ -32,6 +32,29 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+# linuxbrew
+RUN /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+RUN brew update && brew install \
+    kubectl \
+    helm \
+    kustomize \
+    helmfile \
+    sops \
+    age \
+    uv
+
+USER ubuntu
+
+RUN test -d /home/linuxbrew/.linuxbrew &&   \
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" &&   \
+    echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.bashrc
+RUN helm plugin install https://github.com/databus23/helm-diff
+RUN helm plugin install https://github.com/aslafy-z/helm-git
+RUN helm plugin install https://github.com/hypnoglow/helm-s3.git
+RUN helm plugin install https://github.com/jkroepke/helm-secrets
+
+USER root
+
 COPY entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 
