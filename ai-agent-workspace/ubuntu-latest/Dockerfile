@@ -33,8 +33,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # linuxbrew
-RUN curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh \
-    | bash -s -- --unattended \
+RUN NONINTERACTIVE=1 CI=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" \
  && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" \
  && brew update \
  && brew install \
