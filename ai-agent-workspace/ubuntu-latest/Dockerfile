@@ -60,7 +60,8 @@ ENV NVM_VERSION=v0.40.3
 ENV NVM_DIR=/home/ubuntu/.nvm
 ENV NODE_VERSION=20
 
-RUN echo '. "${BASH_ENV}"' >> ~/.bashrc
+RUN touch "${BASH_ENV}" \
+ && echo '. "${BASH_ENV}"' >> ~/.bashrc
 RUN curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install.sh"  \
   | PROFILE="${BASH_ENV}" bash \
  && echo node > /home/ubuntu/.nvmrc
