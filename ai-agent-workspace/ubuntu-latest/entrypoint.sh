@@ -25,7 +25,7 @@ if [ "$uid" -ne 0 ]; then
 fi
 
 if [ -z "$(find "$HOME" -mindepth 1 -print -quit)" ]; then
-    cp -rp /home/agent-home-backup/. $HOME
+    cp -rp /home/$USER-home-backup/. $HOME
 fi
 
 #######################################################################################################

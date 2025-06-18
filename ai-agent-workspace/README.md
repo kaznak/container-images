@@ -17,7 +17,7 @@ MacOS:
     "-i",
     "--mount",
     "type=bind,src=/Users/user-name/MCPHome,dst=/home/mcp",
-    "ghcr.io/kaznak/shell-command-mcp:latest"
+    "ghcr.io/kaznak/ai-agent-workspace:ubuntu-latest"
   ]
 }
 ```
@@ -35,7 +35,13 @@ Windows:
       "-i",
       "--mount",
       "type=bind,src=\\\\wsl.localhost\\Ubuntu\\home\\user-name\\MCPHome,dst=/home/mcp",
-      "ghcr.io/kaznak/shell-command-mcp:latest"
+      "ghcr.io/kaznak/ai-agent-workspace:ubuntu-latest"
    ]
 }
+```
+
+docker run --rm -it --mount type=bind,source=/home/kaznak/MCPHome,target=/home/agent ghcr.io/kaznak/ai-agent-workspace:ubuntu-latest -- /bin/bash
+
+```bash
+docker run --rm -it --mount type=bind,source=/home/kaznak/MCPHome,target=/home/ubuntu ghcr.io/kaznak/ai-agent-workspace:ubuntu-latest -- /bin/bash
 ```

@@ -3,7 +3,7 @@ FROM ubuntu:latest
 # Set non-interactive mode for apt
 ENV DEBIAN_FRONTEND=noninteractive
 
-ENV DEFAULT_USER=agent
+ENV DEFAULT_USER=ubuntu
 
 # Install basic utilities and dependencies
 RUN apt-get update && apt-get install -y \
@@ -37,15 +37,12 @@ RUN apt-get update && apt-get install -y \
 COPY entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 
-# Create a non-root user to run the MCP server
-RUN useradd -m -s /bin/bash $DEFAULT_USER
-
 # Copy default home directory contents if the home directory is empty
-RUN cp -rp /home/agent/. /home/agent-home-backup
+RUN cp -rp /home/$DEFAULT_USER/. /home/$DEFAULT_USER-home-backup
 
 WORKDIR /home/$DEFAULT_USER
 ENV WORKDIR=/home/$DEFAULT_USER
 
 # Command to run the MCP server
-ENTRYPOINT ["/entrypoint.sh", "agent"]
+ENTRYPOINT ["/entrypoint.sh", "$DEFAULT_USER"]
 CMD ["bash"]
