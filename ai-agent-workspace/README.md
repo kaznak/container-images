@@ -4,9 +4,17 @@ An Ubuntu-based Docker image designed for AI Coding Agents, such as Claude for D
 
 ## Usage
 
+## Setting up the home directory
+
 This image is itended to be used with the Home Directory mounted to the container.
 Before running, setup Home Directory for AI Agent Workspace.
 Such as  `.claude`, `.kube`, `.ssh`, `.config`, `.local`, etc.
+Run the following command to start bash in the container and run claude code and other settings.
+
+```bash
+HOST_DIRECTORY_FOR_AI_AGENT_WORKSPACE=/home/kaznak/MCPHome
+docker run --rm -it --mount type=bind,source=$HOST_DIRECTORY_FOR_AI_AGENT_WORKSPACE,target=/home/ubuntu ghcr.io/kaznak/ai-agent-workspace:ubuntu-latest -- bash -l
+```
 
 ### Linux
 
