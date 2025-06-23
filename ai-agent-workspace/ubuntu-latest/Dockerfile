@@ -43,7 +43,7 @@ USER ubuntu
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-RUN touch $HOME/.bash_env && echo '. $HOME/.bash_env' >> ~/.bashrc
+RUN touch $HOME/.bash_env && echo '. $HOME/.bash_env' >> $HOME/.bashrc
 
 RUN git clone https://github.com/Homebrew/brew $HOME/.linuxbrew \
  && eval "$($HOME/.linuxbrew/bin/brew shellenv)" \
