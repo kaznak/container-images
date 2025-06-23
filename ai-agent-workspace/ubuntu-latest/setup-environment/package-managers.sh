@@ -2,6 +2,10 @@
 
 set -euo pipefail
 
+touch $HOME/.bash_env
+sed -i '/\. "\$HOME\/\.bash_env"/d' ~/.bashrc
+echo '. $HOME/.bash_env' >> $HOME/.bashrc
+
 # Homebrew on Linux installation
 if [ ! -d "$HOME/.linuxbrew" ]; then
     git clone https://github.com/Homebrew/brew $HOME/.linuxbrew
