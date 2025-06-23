@@ -8,6 +8,7 @@ ENV NODE_VERSION=20
 
 WORKDIR /home/ubuntu
 ENV WORKDIR=/home/ubuntu
+ENV BASH_ENV=/home/ubuntu/.bash_env
 
 # Install basic utilities and dependencies
 RUN apt-get update && apt-get install -y \
