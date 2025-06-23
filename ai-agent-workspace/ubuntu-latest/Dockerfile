@@ -8,7 +8,6 @@ ENV NODE_VERSION=20
 
 WORKDIR /home/ubuntu
 ENV WORKDIR=/home/ubuntu
-ENV BASH_ENV=/home/ubuntu/.bash_env
 
 # Install basic utilities and dependencies
 RUN apt-get update && apt-get install -y \
@@ -43,17 +42,17 @@ USER ubuntu
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-RUN touch $HOME/$BASH_ENV && echo '. $HOME/$BASH_ENV' >> ~/.bashrc
+RUN touch $HOME/.bash_env && echo '. $HOME/.bash_env' >> ~/.bashrc
 
 RUN git clone https://github.com/Homebrew/brew $HOME/.linuxbrew \
  && eval "$($HOME/.linuxbrew/bin/brew shellenv)" \
- && echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/$BASH_ENV \
+ && echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.bash_env \
  && brew update --force --quiet \
  && chmod -R go-w "$(brew --prefix)/share/zsh"
 
 # NVM (Node Version Manager) installation
 RUN curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install.sh"  \
-  | PROFILE="$HOME/$BASH_ENV" bash \
+  | PROFILE="$HOME/.bash_env" bash \
  && echo node > $HOME/.nvmrc
 RUN source $HOME/.nvm/nvm.sh \
  && nvm install $NODE_VERSION \
@@ -62,7 +61,7 @@ RUN source $HOME/.nvm/nvm.sh \
 # Rust Lang installation
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --verbose -y \
  && sed -i '/\. "\$HOME\/\.cargo\/env"/d' ~/.bashrc \
- && echo "source $HOME/.cargo/env" >> $HOME/$BASH_ENV
+ && echo "source $HOME/.cargo/env" >> $HOME/.bash_env
 
 USER root
 
