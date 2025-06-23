@@ -16,6 +16,13 @@ HOST_DIRECTORY_FOR_AI_AGENT_WORKSPACE=/home/kaznak/MCPHome
 docker run --rm -it --mount type=bind,source=$HOST_DIRECTORY_FOR_AI_AGENT_WORKSPACE,target=/home/ubuntu ghcr.io/kaznak/ai-agent-workspace:ubuntu-latest -- bash -l
 ```
 
+... and then run the following command to setup the workspace.
+
+```bash
+/setup-environment/package-managers.sh
+/setup-environment/packages.sh
+```
+
 ### Linux
 
 ```bash
