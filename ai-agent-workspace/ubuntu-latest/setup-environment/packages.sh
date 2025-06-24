@@ -35,7 +35,7 @@ brew install \
 # # ontology tools
 brew install \
     raptor \
-    jena \
+    jena
 
 # Install Node.js and npm
 # source $HOME/.nvm/nvm.sh
