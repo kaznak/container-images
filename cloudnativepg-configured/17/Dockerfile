@@ -67,6 +67,7 @@ RUN apt-get update \
 #     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
 # Install timescaledb 2.x and toolkit
+# Note: The base image is Debian 11 (Bullseye)
 RUN apt-get update \
     && apt-get install -y lsb-release curl \
     && curl -s https://packagecloud.io/install/repositories/timescale/timescaledb/script.deb.sh | bash \
@@ -79,25 +80,18 @@ RUN apt-get update \
     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
 # Install pgroonga
-RUN apt-get update \
-    && apt-get install -y ca-certificates lsb-release wget \
-    && wget https://packages.groonga.org/debian/groonga-apt-source-latest-$(lsb_release --codename --short).deb \
-    && apt-get install -y -V ./groonga-apt-source-latest-$(lsb_release --codename --short).deb \
-    && rm groonga-apt-source-latest-$(lsb_release --codename --short).deb \
-    && wget -O /usr/share/keyrings/pgdg.asc https://www.postgresql.org/media/keys/ACCC4CF8.asc \
-    && (echo "Types: deb"; \
-        echo "URIs: http://apt.postgresql.org/pub/repos/apt"; \
-        echo "Suites: $(lsb_release --codename --short)-pgdg"; \
-        echo "Components: main"; \
-        echo "Signed-By: /usr/share/keyrings/pgdg.asc") | \
-        tee /etc/apt/sources.list.d/pgdg.sources \
-    && apt-get update \
-    && apt-get install -y -V "postgresql-${PG_MAJOR}-pgdg-pgroonga" "groonga-tokenizer-mecab" \
-    && apt-get remove -y lsb-release wget \
-    && apt-get autoremove -y \
-    && apt-get clean \
-    && rm -rf /etc/apt/sources.list.d/pgdg.sources \
-    && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
+# # disabling because of following error # E: Unable to locate package postgresql-17-17-pgroonga
+# RUN apt-get update  \
+#     && apt-get install -y lsb-release wget \
+#     && echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -c -s)-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list \
+#     && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -    \
+#     && apt-get update   \
+#     && apt-get remove -y wget \
+#     && apt install -y -V "postgresql-17-${PG_MAJOR}-pgroonga" "groonga-tokenizer-mecab" \
+#     && apt-get remove -y lsb-release wget \
+#     && apt-get clean \
+#     && rm -rf /etc/apt/sources.list.d/pgdg.list \
+#     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
 # Install postgresql packages
 RUN yes | /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh   \
