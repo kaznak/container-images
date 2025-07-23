@@ -79,24 +79,17 @@ RUN apt-get update \
     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
 # Install pgroonga
+# Note: PostgreSQL APT repository is already configured in the base image
 RUN apt-get update \
     && apt-get install -y ca-certificates lsb-release wget \
     && wget https://packages.groonga.org/debian/groonga-apt-source-latest-$(lsb_release --codename --short).deb \
     && apt-get install -y -V ./groonga-apt-source-latest-$(lsb_release --codename --short).deb \
     && rm groonga-apt-source-latest-$(lsb_release --codename --short).deb \
-    && wget -O /usr/share/keyrings/pgdg.asc https://www.postgresql.org/media/keys/ACCC4CF8.asc \
-    && (echo "Types: deb"; \
-        echo "URIs: http://apt.postgresql.org/pub/repos/apt"; \
-        echo "Suites: $(lsb_release --codename --short)-pgdg"; \
-        echo "Components: main"; \
-        echo "Signed-By: /usr/share/keyrings/pgdg.asc") | \
-        tee /etc/apt/sources.list.d/pgdg.sources \
     && apt-get update \
     && apt-get install -y -V "postgresql-${PG_MAJOR}-pgdg-pgroonga" "groonga-tokenizer-mecab" \
     && apt-get remove -y lsb-release wget \
     && apt-get autoremove -y \
     && apt-get clean \
-    && rm -rf /etc/apt/sources.list.d/pgdg.sources \
     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
 # Install postgresql packages
