@@ -41,6 +41,20 @@ pgadmin4 のヘルプにデバッガの使い方についての記載がある�
 
 - https://pgroonga.github.io/ja/install/
 
+### [ProvSQL](https://github.com/PierreSenellart/provsql)
+
+PostgreSQL用のprovenance（データ来歴）とuncertainty（不確実性）管理機能を提供する拡張機能。
+
+主な機能:
+- Boolean and semiring provenance computation
+- Probability computation  
+- Shapley value computation
+- Provenance tracking of updates
+
+使用方法:
+- `CREATE EXTENSION provsql;` でエクステンションを有効化
+- `SELECT provsql.add_provenance('テーブル名'::regclass);` でテーブルにprovenanceを追加
+
 ## How to use
 
 ```yaml
