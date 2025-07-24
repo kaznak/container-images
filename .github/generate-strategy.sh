@@ -39,7 +39,8 @@ jq '
         dockleignore: ($step1.dir + "/" + $step1.files.dockleignore)
     },
     buildArgs: $step1.buildArgs,
-    buildArgsProcessed: ($step1.buildArgs | to_entries | map("\(.key)=\(.value)") | join("\n"))
+    buildArgsProcessed: ($step1.buildArgs | to_entries | map("\(.key)=\(.value)") | join("\n")),
+    noCache: ($root.noCache // false)
 }
 '   |
 jq -s .

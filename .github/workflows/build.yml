@@ -101,6 +101,7 @@ jobs:
         load: true
         tags: ${{ join(matrix.tagsProcessed) }}
         build-args: ${{ matrix.buildArgsProcessed }}
+        no-cache: ${{ matrix.noCache == true }}
 
     - name: Setup dockle
       run: cp "${{ matrix.filesProcessed.dockleignore }}" .
@@ -123,3 +124,4 @@ jobs:
         push: true
         tags: ${{ join(matrix.tagsProcessed) }}
         build-args: ${{ matrix.buildArgsProcessed }}
+        no-cache: ${{ matrix.noCache == true }}
