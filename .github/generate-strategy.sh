@@ -2,8 +2,8 @@
 #
 # example usage:
 #   cat \
-#     cloudnativepg-configured/16/strategy.json \
-#     cloudnativepg-configured/16/strategy.json \
+#     cloudnativepg-configured/16/strategy.jsonl \
+#     cloudnativepg-configured/16/strategy.jsonl \
 #   | .github/generate-strategy.sh 
 #
 

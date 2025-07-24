@@ -32,18 +32,18 @@ jobs:
           | xargs --verbose --no-run-if-empty --max-args=1 dirname  \
           | sort -u \
           | tee changed-dirs.lst
-      - name: Extract Target strategy.json
+      - name: Extract Target strategy.jsonl
         run: |
           if grep -q '^\.github' changed-dirs.lst ; then
             # if workflow file changed.
-            find . -type f -name strategy.json
+            find . -type f -name strategy.jsonl
           elif [ "${{ github.event_name }}" = "schedule" ] ; then
             # if scheduler dispatched.
-            find . -type f -name strategy.json
+            find . -type f -name strategy.jsonl
           else
             # scan the changed directories
             grep -Ev '^\.(github|vscode)' changed-dirs.lst \
-            | xargs --no-run-if-empty -I% find % -type f -name strategy.json \
+            | xargs --no-run-if-empty -I% find % -type f -name strategy.jsonl \
             || true
           fi  \
           | sort -u \
