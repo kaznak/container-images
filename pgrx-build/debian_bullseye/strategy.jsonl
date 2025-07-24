@@ -16,6 +16,19 @@
     "imgname": "pgrx-build",
     "variant": "debian_bullseye",
     "platforms": ["linux/amd64"],
+    "tags": ["debian_bullseye-pg16-pgrx0.11.2"],
+    "buildArgs": {
+        "PG_MAJOR_VERSION": "16",
+        "PGRX_VERSION": "0.11.2",
+        "YQ_VERSION": "4.41.1"
+    },
+    "noCache": true
+}
+{
+    "name": "pgrx build environment",
+    "imgname": "pgrx-build",
+    "variant": "debian_bullseye",
+    "platforms": ["linux/amd64"],
     "tags": ["debian_bullseye-pg16-pgrx0.11.4"],
     "buildArgs": {
         "PG_MAJOR_VERSION": "16",
