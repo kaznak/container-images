@@ -66,32 +66,44 @@ RUN apt-get update  \
     && apt-get clean \
     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
-# Install timescaledb 2.x
+# Install timescaledb 2.x and toolkit
 RUN apt-get update \
-    && apt-get install -y lsb-release wget \
-    && echo "deb https://packagecloud.io/timescale/timescaledb/debian/ $(lsb_release -c -s) main" | tee /etc/apt/sources.list.d/timescaledb.list \
-    && wget --quiet -O - https://packagecloud.io/timescale/timescaledb/gpgkey | apt-key add - \
+    && apt-get install -y lsb-release curl \
+    && curl -s https://packagecloud.io/install/repositories/timescale/timescaledb/script.deb.sh | bash \
     && apt-get update \
     && apt-get install -y "timescaledb-2-postgresql-${PG_MAJOR}" "timescaledb-toolkit-postgresql-${PG_MAJOR}" \
-    && apt-get remove -y lsb-release wget \
+    && apt-get remove -y lsb-release curl \
     && apt-get autoremove -y \
     && apt-get clean \
     && rm -rf /etc/apt/sources.list.d/timescaledb.list  \
     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
-# Install pgroonga
-# # disabling because of following error # E: Unable to locate package postgresql-16-16-pgroonga
-# RUN apt-get update  \
-#     && apt-get install -y lsb-release wget \
-#     && echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -c -s)-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list \
-#     && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -    \
-#     && apt-get update   \
-#     && apt-get remove -y wget \
-#     && apt install -y -V "postgresql-16-${PG_MAJOR}-pgroonga" "groonga-tokenizer-mecab" \
-#     && apt-get remove -y lsb-release wget \
-#     && apt-get clean \
-#     && rm -rf /etc/apt/sources.list.d/pgdg.list \
-#     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
+# Install pgroonga (build from source)
+RUN apt-get update \
+    && apt-get install -y ca-certificates lsb-release wget build-essential \
+    && wget https://packages.groonga.org/debian/groonga-apt-source-latest-$(lsb_release --codename --short).deb \
+    && apt-get install -y -V ./groonga-apt-source-latest-$(lsb_release --codename --short).deb \
+    && rm groonga-apt-source-latest-$(lsb_release --codename --short).deb \
+    && apt-get update \
+    && apt-get install -y \
+        postgresql-server-dev-${PG_MAJOR} \
+        libgroonga-dev \
+        pkg-config \
+        libmsgpack-dev \
+        groonga-token-filter-stem \
+        groonga-tokenizer-mecab \
+    && PGROONGA_VERSION=4.0.1 \
+    && wget https://packages.groonga.org/source/pgroonga/pgroonga-${PGROONGA_VERSION}.tar.gz \
+    && tar xvf pgroonga-${PGROONGA_VERSION}.tar.gz \
+    && cd pgroonga-${PGROONGA_VERSION} \
+    && make HAVE_MSGPACK=1 \
+    && make install \
+    && cd .. \
+    && rm -rf pgroonga-${PGROONGA_VERSION}.tar.gz pgroonga-${PGROONGA_VERSION} \
+    && apt-get remove -y lsb-release wget build-essential postgresql-server-dev-${PG_MAJOR} libgroonga-dev pkg-config libmsgpack-dev \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
 # Install ProvSQL
 RUN apt-get update \
