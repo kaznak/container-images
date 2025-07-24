@@ -39,3 +39,6 @@ properties:
   buildArgs:
     type: object
     description: key-value maps of Docker build arguments
+  noCache:
+    type: boolean
+    description: Disable cache when building Docker image
