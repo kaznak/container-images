@@ -43,28 +43,27 @@ RUN apt-get update \
     && apt-get clean \
     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
-# Comment out because of the compile error
-# # Install multicorn2
-# RUN apt-get update  \
-#     && apt-get install -y   \
-#         wget clang-11   \
-#         build-essential libreadline-dev zlib1g-dev flex bison libxml2-dev libxslt-dev libssl-dev libxml2-utils xsltproc   \
-#         postgresql-server-dev-17    \
-#         python3 python3-dev python3-setuptools python3-pip  \
-#     && wget https://github.com/pgsql-io/multicorn2/archive/refs/tags/v2.5.tar.gz    \
-#     && tar -xvf v2.5.tar.gz \
-#     && cd multicorn2-2.5    \
-#     && make \
-#     && make install \
-#     && cd ..    \
-#     && rm -rf v2.5.tar.gz multicorn2-2.5    \
-#     && apt-get remove -y \
-#         wget clang-11   \
-#         build-essential libreadline-dev zlib1g-dev flex bison libxml2-dev libxslt-dev libssl-dev libxml2-utils xsltproc   \
-#         postgresql-server-dev-17    \
-#     && apt-get autoremove -y \
-#     && apt-get clean \
-#     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
+# Install multicorn2 v3.0
+RUN apt-get update  \
+    && apt-get install -y   \
+        wget clang   \
+        build-essential libreadline-dev zlib1g-dev flex bison libxml2-dev libxslt-dev libssl-dev libxml2-utils xsltproc   \
+        postgresql-server-dev-17    \
+        python3 python3-dev python3-setuptools python3-pip  \
+    && wget https://github.com/pgsql-io/multicorn2/archive/refs/tags/v3.0.tar.gz    \
+    && tar -xvf v3.0.tar.gz \
+    && cd multicorn2-3.0    \
+    && make \
+    && make install \
+    && cd ..    \
+    && rm -rf v3.0.tar.gz multicorn2-3.0    \
+    && apt-get remove -y \
+        wget clang   \
+        build-essential libreadline-dev zlib1g-dev flex bison libxml2-dev libxslt-dev libssl-dev libxml2-utils xsltproc   \
+        postgresql-server-dev-17    \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
 # Install timescaledb 2.x and toolkit
 # Note: The base image is Debian 11 (Bullseye)
