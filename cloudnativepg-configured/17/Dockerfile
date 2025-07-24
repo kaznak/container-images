@@ -93,6 +93,24 @@ RUN apt-get update \
 #     && rm -rf /etc/apt/sources.list.d/pgdg.list \
 #     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
+# Install ProvSQL
+RUN apt-get update \
+    && apt-get install -y \
+        git build-essential \
+        postgresql-server-dev-${PG_MAJOR} \
+        libboost-dev libboost-serialization-dev \
+        uuid-dev \
+    && git clone --depth 1 https://github.com/PierreSenellart/provsql.git \
+    && cd provsql \
+    && make \
+    && make install \
+    && cd .. \
+    && rm -rf provsql \
+    && apt-get remove -y git build-essential postgresql-server-dev-${PG_MAJOR} libboost-dev libboost-serialization-dev \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
+
 # Install postgresql packages
 RUN yes | /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh   \
     && apt-get update   \
