@@ -43,24 +43,25 @@ RUN apt-get update \
     && apt-get clean \
     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
-# Install multicorn2 v3.0
+# Install multicorn2
 RUN apt-get update  \
     && apt-get install -y   \
         wget clang   \
         build-essential libreadline-dev zlib1g-dev flex bison libxml2-dev libxslt-dev libssl-dev libxml2-utils xsltproc   \
-        postgresql-server-dev-17    \
+        postgresql-server-dev-${PG_MAJOR}    \
         python3 python3-dev python3-setuptools python3-pip  \
-    && wget https://github.com/pgsql-io/multicorn2/archive/refs/tags/v3.0.tar.gz    \
-    && tar -xvf v3.0.tar.gz \
-    && cd multicorn2-3.0    \
+    && MULTICORN2_VERSION=3.0 \
+    && wget https://github.com/pgsql-io/multicorn2/archive/refs/tags/v${MULTICORN2_VERSION}.tar.gz    \
+    && tar -xvf v${MULTICORN2_VERSION}.tar.gz \
+    && cd multicorn2-${MULTICORN2_VERSION}    \
     && make \
     && make install \
     && cd ..    \
-    && rm -rf v3.0.tar.gz multicorn2-3.0    \
+    && rm -rf v${MULTICORN2_VERSION}.tar.gz multicorn2-${MULTICORN2_VERSION}    \
     && apt-get remove -y \
         wget clang   \
         build-essential libreadline-dev zlib1g-dev flex bison libxml2-dev libxslt-dev libssl-dev libxml2-utils xsltproc   \
-        postgresql-server-dev-17    \
+        postgresql-server-dev-${PG_MAJOR}    \
     && apt-get autoremove -y \
     && apt-get clean \
     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
