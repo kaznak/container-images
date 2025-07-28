@@ -61,12 +61,13 @@ PostgreSQL用のprovenance（データ来歴）とuncertainty（不確実性）�
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: cloudnativepg
+  name: cnpg0000
 spec:
+  enableSuperuserAccess: true
   monitoring:
     enablePodMonitor: true
   instances: 1
-  imageName: ghcr.io/kaznak/cloudnativepg-configured:16
+  imageName: ghcr.io/kaznak/cloudnativepg-configured:17
   primaryUpdateStrategy: unsupervised
   bootstrap:
     initdb:
@@ -77,15 +78,19 @@ spec:
         - CREATE EXTENSION postgis_topology;
         - CREATE EXTENSION fuzzystrmatch;
         - CREATE EXTENSION postgis_tiger_geocoder;
-        - CREATE EXTENSION pg_cron;
         - CREATE EXTENSION pldbgapi;
+        - CREATE EXTENSION "uuid-ossp";
+        - CREATE EXTENSION provsql;
+      postInitApplicationSQL:
+        - CREATE EXTENSION IF NOT EXISTS pg_cron;
   postgresql:
     shared_preload_libraries:
       - timescaledb
       - pg_cron
       - plugin_debugger
+      - provsql
     pg_ident:
-      - local postgres app_owner
+      - local postgres app
     parameters:
       "pgaudit.log": "all, -misc"
       "pgaudit.log_catalog": "off"
@@ -94,7 +99,7 @@ spec:
       #
       "cron.host": ""
       "cron.database_name": "app"
-      "cron.timezone": "JST"
+      "cron.timezone": "Asia/Tokyo"
   storage:
     size: 40Gi
 ```
