@@ -132,11 +132,11 @@ RUN yes | /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh   \
     && apt-get clean \
     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
-# Install pgx_uuidv7 v0.1.4
+# Install pgx_uuidv7 v0.1.5
 RUN apt-get update \
     && apt-get install -y wget \
     && wget -O /tmp/pgx-uuidv7-17-amd64-linux-gnu.deb \
-        https://github.com/kaznak/pgx_uuidv7/releases/download/v0.1.4/pgx-uuidv7-17-amd64-linux-gnu.deb \
+        https://github.com/kaznak/pgx_uuidv7/releases/download/v0.1.5/pgx-uuidv7-17-amd64-linux-gnu.deb \
     && dpkg -i /tmp/pgx-uuidv7-17-amd64-linux-gnu.deb \
     && rm /tmp/pgx-uuidv7-17-amd64-linux-gnu.deb \
     && apt-get remove -y wget \
