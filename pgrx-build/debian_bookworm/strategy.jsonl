@@ -39,7 +39,7 @@
     "imgname": "pgrx-build",
     "variant": "debian_bookworm",
     "platforms": ["linux/amd64"],
-    "tags": ["debian_bookworm-pg18-pgrx0.15.0"],
+    "tags": ["debian_bookworm-pg18-pgrx0.16.1"],
     "buildArgs": {
         "PG_MAJOR_VERSION": "18",
         "PGRX_VERSION": "0.16.1",
