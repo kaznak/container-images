@@ -136,7 +136,7 @@ RUN yes | /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh   \
     && apt-get clean \
     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
-# Install pgx_uuidv7 v0.1.5
+# Install pgx_uuidv7
 RUN apt-get update \
     && apt-get install -y wget \
     && wget -O /tmp/pgx-uuidv7-${PG_MAJOR_VERSION}-amd64-linux-gnu.deb \
