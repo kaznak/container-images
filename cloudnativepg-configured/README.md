@@ -5,6 +5,8 @@ with some locales and extensions.
 
 Base image: [CloudNativePG PostGIS image](https://github.com/cloudnative-pg/postgis-containers)
 
+- or [CloudNativePG standard image](https://github.com/cloudnative-pg/postgres-containers)
+
 ## Locales
 
 - ja_JP.UTF-8
