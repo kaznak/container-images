@@ -57,6 +57,10 @@ PostgreSQL用のprovenance（データ来歴）とuncertainty（不確実性）�
 - `CREATE EXTENSION provsql;` でエクステンションを有効化
 - `SELECT provsql.add_provenance('テーブル名'::regclass);` でテーブルにprovenanceを追加
 
+### [pgx-uuidv7](https://github.com/kaznak/pgx_uuidv7)
+
+### [uuidv47](https://github.com/stateless-me/uuidv47)
+
 ## How to use
 
 ```yaml
