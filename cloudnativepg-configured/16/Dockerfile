@@ -148,5 +148,23 @@ RUN apt-get update \
     && apt-get clean \
     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
+# Install uuid47
+RUN apt-get update \
+    && apt-get install -y \
+        git build-essential \
+        postgresql-server-dev-${PG_MAJOR_VERSION} \
+        libboost-dev libboost-serialization-dev \
+        uuid-dev \
+    && git clone --depth 1 git@github.com:stateless-me/uuidv47.git \
+    && cd uuidv47 \
+    && make \
+    && make install \
+    && cd .. \
+    && rm -rf uuidv47 \
+    && apt-get remove -y git build-essential postgresql-server-dev-${PG_MAJOR_VERSION} libboost-dev libboost-serialization-dev \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
+
 # Change the uid of postgres to 26
 USER 26
