@@ -1,6 +1,6 @@
-ARG PG_MAJOR_VERSION
+ARG BASE_IMAGE
 
-FROM ghcr.io/cloudnative-pg/postgis:${PG_MAJOR_VERSION}
+FROM ${BASE_IMAGE}
 # FROM ghcr.io/cloudnative-pg/postgresql:${PG_MAJOR_VERSION}-standard-trixie
 
 ARG PG_MAJOR_VERSION
