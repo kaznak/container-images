@@ -1,4 +1,4 @@
-ARG BASE_IMAGE
+ARG BASE_IMAGE=ghcr.io/cloudnative-pg/postgis:17
 
 FROM ${BASE_IMAGE}
 # FROM ghcr.io/cloudnative-pg/postgresql:${PG_MAJOR_VERSION}-standard-trixie
