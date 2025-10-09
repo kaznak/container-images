@@ -156,13 +156,17 @@ RUN apt-get update \
         postgresql-server-dev-${PG_MAJOR_VERSION} \
         libboost-dev libboost-serialization-dev \
         uuid-dev \
-    && git clone --depth 1 git@github.com:stateless-me/uuidv47.git \
+    && git clone --depth 1 https://github.com/stateless-me/uuidv47.git  \
     && cd uuidv47 \
     && make \
     && make install \
     && cd .. \
     && rm -rf uuidv47 \
-    && apt-get remove -y git build-essential postgresql-server-dev-${PG_MAJOR_VERSION} libboost-dev libboost-serialization-dev \
+    && apt-get remove -y    \
+        git build-essential \
+        postgresql-server-dev-${PG_MAJOR_VERSION}   \
+        libboost-dev libboost-serialization-dev \
+        uuid-dev \
     && apt-get autoremove -y \
     && apt-get clean \
     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
