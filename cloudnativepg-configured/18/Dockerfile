@@ -9,6 +9,13 @@ ARG PGXUUIDV7_VERSION
 FROM ghcr.io/cloudnative-pg/postgresql:${PG_MAJOR_VERSION}-standard-trixie
 # FROM ghcr.io/cloudnative-pg/postgis:${PG_MAJOR_VERSION}
 
+ENV PG_MAJOR_VERSION=${PG_MAJOR_VERSION}
+ENV PGTAP_VERSION=${PGTAP_VERSION}
+ENV PLDEBUGGER_VERSION=${PLDEBUGGER_VERSION}
+ENV MULTICORN2_VERSION=${MULTICORN2_VERSION}
+ENV PGROONGA_VERSION=${PGROONGA_VERSION}
+ENV PGXUUIDV7_VERSION=${PGXUUIDV7_VERSION}
+
 USER root
 
 # Do not split the description, otherwise we will see a blank space in the labels
