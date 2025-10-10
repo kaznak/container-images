@@ -8,12 +8,12 @@ pgrx gets the build target from pg_config, so it needs to be built with the imag
 
 ## ⚠️ Version Support Notice
 
-**Only pgrx 0.15.0 is supported:**
+Postgres versions supported:
+- 18
+- 17
 
-- **Discontinued**: All versions prior to 0.15.0 (including 0.10.2, 0.11.2, 0.11.3, 0.11.4, 0.14.3)
-- **Currently supported**: pgrx 0.15.0 only
-
-Please migrate to pgrx 0.15.0 for continued support.
+Pgrx versions supported:
+- 0.16.1
 
 ## Usage
 

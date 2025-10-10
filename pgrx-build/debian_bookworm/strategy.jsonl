@@ -3,30 +3,6 @@
     "imgname": "pgrx-build",
     "variant": "debian_bookworm",
     "platforms": ["linux/amd64"],
-    "tags": ["debian_bookworm-pg16-pgrx0.15.0"],
-    "buildArgs": {
-        "PG_MAJOR_VERSION": "16",
-        "PGRX_VERSION": "0.15.0",
-        "YQ_VERSION": "4.41.1"
-    }
-}
-{
-    "name": "pgrx build environment",
-    "imgname": "pgrx-build",
-    "variant": "debian_bookworm",
-    "platforms": ["linux/amd64"],
-    "tags": ["debian_bookworm-pg17-pgrx0.15.0"],
-    "buildArgs": {
-        "PG_MAJOR_VERSION": "17",
-        "PGRX_VERSION": "0.15.0",
-        "YQ_VERSION": "4.41.1"
-    }
-}
-{
-    "name": "pgrx build environment",
-    "imgname": "pgrx-build",
-    "variant": "debian_bookworm",
-    "platforms": ["linux/amd64"],
     "tags": ["debian_bookworm-pg17-pgrx0.16.1"],
     "buildArgs": {
         "PG_MAJOR_VERSION": "17",
