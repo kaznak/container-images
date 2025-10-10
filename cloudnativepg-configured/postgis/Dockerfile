@@ -167,7 +167,7 @@ RUN apt-get update \
     && git clone --depth 1 https://github.com/stateless-me/uuidv47.git  \
     && cd uuidv47 \
     && make \
-    && make install \
+    && make pginstall \
     && cd .. \
     && rm -rf uuidv47 \
     && apt-get remove -y    \
