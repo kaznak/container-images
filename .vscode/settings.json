@@ -10,6 +10,7 @@
         "pgrx",
         "pldbgapi",
         "postgis",
-        "timescaledb"
+        "timescaledb",
+        "trixie"
     ]
 }
