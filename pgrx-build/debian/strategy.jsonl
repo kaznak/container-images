@@ -39,7 +39,6 @@
 {
     "name": "pgrx build environment",
     "variant": "debian",
-    "variant": "debian_before_bookworm",
     "platforms": ["linux/amd64"],
     "tags": ["debian_bookworm-pg18-pgrx0.16.1"],
     "buildArgs": {
