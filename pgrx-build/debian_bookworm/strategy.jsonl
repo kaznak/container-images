@@ -1,9 +1,9 @@
 {
     "name": "pgrx build environment",
     "imgname": "pgrx-build",
-    "variant": "debian",
+    "variant": "debian_bookworm",
     "platforms": ["linux/amd64"],
-    "tags": ["debian_trixie-pg17-pgrx0.16.1"],
+    "tags": ["debian_bookworm-pg17-pgrx0.16.1"],
     "buildArgs": {
         "PG_MAJOR_VERSION": "17",
         "PGRX_VERSION": "0.16.1",
@@ -13,9 +13,9 @@
 {
     "name": "pgrx build environment",
     "imgname": "pgrx-build",
-    "variant": "debian",
+    "variant": "debian_bookworm",
     "platforms": ["linux/amd64"],
-    "tags": ["debian_trixie-pg18-pgrx0.16.1"],
+    "tags": ["debian_bookworm-pg18-pgrx0.16.1"],
     "buildArgs": {
         "PG_MAJOR_VERSION": "18",
         "PGRX_VERSION": "0.16.1",
