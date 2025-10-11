@@ -1,7 +1,7 @@
 {
     "name": "pgrx build environment",
     "imgname": "pgrx-build",
-    "variant": "debian_trixie",
+    "variant": "debian",
     "platforms": ["linux/amd64"],
     "tags": ["debian_trixie-pg17-pgrx0.16.1"],
     "buildArgs": {
@@ -13,7 +13,7 @@
 {
     "name": "pgrx build environment",
     "imgname": "pgrx-build",
-    "variant": "debian_trixie",
+    "variant": "debian",
     "platforms": ["linux/amd64"],
     "tags": ["debian_trixie-pg18-pgrx0.16.1"],
     "buildArgs": {
