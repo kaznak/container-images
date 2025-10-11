@@ -1,4 +1,6 @@
-FROM debian:bullseye
+ARG DEBIAN_CODENAME=bullseye
+
+FROM debian:${DEBIAN_CODENAME}
 
 ARG PG_MAJOR_VERSION
 ENV PG_MAJOR_VERSION=${PG_MAJOR_VERSION}
@@ -13,7 +15,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update
 RUN apt-get install -y wget gnupg
-RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ bullseye-pgdg main" >> /etc/apt/sources.list.d/pgdg.list
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ bookworm-pgdg main" >> /etc/apt/sources.list.d/pgdg.list
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 RUN apt-get update -y --fix-missing
 RUN apt-get install -y \
