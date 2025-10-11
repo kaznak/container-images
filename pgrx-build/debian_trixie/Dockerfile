@@ -1,4 +1,6 @@
-FROM debian:trixie
+ARG DEBIAN_CODENAME=trixie
+
+FROM debian:${DEBIAN_CODENAME}
 
 ARG PG_MAJOR_VERSION
 ENV PG_MAJOR_VERSION=${PG_MAJOR_VERSION}
@@ -12,8 +14,8 @@ ENV YQ_VERSION=${YQ_VERSION}
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update
-RUN apt-get install -y wget gnupg
-RUN echo "deb [signed-by=/usr/share/keyrings/postgresql.gpg] http://apt.postgresql.org/pub/repos/apt trixie-pgdg main" >> /etc/apt/sources.list.d/pgdg.list
+RUN apt-get install -y wget gnupg lsb_release
+RUN echo "deb [signed-by=/usr/share/keyrings/postgresql.gpg] http://apt.postgresql.org/pub/repos/apt $(lsb_release --codename --short)-pgdg main" >> /etc/apt/sources.list.d/pgdg.list
 RUN wget --quiet -O /usr/share/keyrings/postgresql.gpg https://www.postgresql.org/media/keys/ACCC4CF8.asc
 RUN apt-get update -y --fix-missing
 RUN apt-get install -y \
