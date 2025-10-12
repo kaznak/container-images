@@ -153,7 +153,7 @@ RUN yes | /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh   \
 RUN apt-get update \
     && apt-get install -y wget \
     && wget -O /tmp/pgx-uuidv7-${PG_MAJOR_VERSION}-amd64-${DEBIAN_CODENAME}-gnu.deb \
-        https://github.com/kaznak/pgx_uuidv7/releases/download/v${PGXUUIDV7_VERSION}/pgx-uuidv7-${PG_MAJOR_VERSION}-amd64-${DEBIAN_CODENAME}-gnu.deb \
+        https://github.com/kaznak/pgx_uuidv7/releases/download/v${PGXUUIDV7_VERSION}/pgx-uuidv7-pg${PG_MAJOR_VERSION}-amd64-${DEBIAN_CODENAME}-gnu.deb \
     && dpkg -i /tmp/pgx-uuidv7-${PG_MAJOR_VERSION}-amd64-${DEBIAN_CODENAME}-gnu.deb \
     && rm /tmp/pgx-uuidv7-${PG_MAJOR_VERSION}-amd64-${DEBIAN_CODENAME}-gnu.deb \
     && apt-get remove -y wget \
@@ -165,7 +165,7 @@ RUN apt-get update \
 RUN apt-get update \
     && apt-get install -y wget \
     && wget -O /tmp/pgx-basex-codec-${PG_MAJOR_VERSION}-amd64-${DEBIAN_CODENAME}-gnu.deb \
-        https://github.com/kaznak/pgx_basex_codec/releases/download/v${PGXBASEX_CODEC_VERSION}/pgx-basex-codec-${PG_MAJOR_VERSION}-amd64-${DEBIAN_CODENAME}-gnu.deb \
+        https://github.com/kaznak/pgx_basex_codec/releases/download/v${PGXBASEX_CODEC_VERSION}/pgx-basex-codec-pg${PG_MAJOR_VERSION}-amd64-${DEBIAN_CODENAME}-gnu.deb \
     && dpkg -i /tmp/pgx-basex-codec-${PG_MAJOR_VERSION}-amd64-${DEBIAN_CODENAME}-gnu.deb \
     && rm /tmp/pgx-basex-codec-${PG_MAJOR_VERSION}-amd64-${DEBIAN_CODENAME}-gnu.deb \
     && apt-get remove -y wget \
