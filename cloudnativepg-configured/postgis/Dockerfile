@@ -159,6 +159,18 @@ RUN apt-get update \
     && apt-get clean \
     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
+# Install pgx_basex_codec
+RUN apt-get update \
+    && apt-get install -y wget \
+    && wget -O /tmp/pgx-basex-codec-${PG_MAJOR_VERSION}-amd64-${DEBIAN_CODENAME}-gnu.deb \
+        https://github.com/kaznak/pgx_basex_codec/releases/download/v${PGXUUIDV7_VERSION}/pgx-basex-codec-${PG_MAJOR_VERSION}-amd64-${DEBIAN_CODENAME}-gnu.deb \
+    && dpkg -i /tmp/pgx-basex-codec-${PG_MAJOR_VERSION}-amd64-${DEBIAN_CODENAME}-gnu.deb \
+    && rm /tmp/pgx-basex-codec-${PG_MAJOR_VERSION}-amd64-${DEBIAN_CODENAME}-gnu.deb \
+    && apt-get remove -y wget \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
+
 # Install uuid47
 RUN apt-get update \
     && apt-get install -y \
