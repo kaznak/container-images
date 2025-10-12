@@ -3,6 +3,8 @@ ARG BASE_IMAGE=ghcr.io/cloudnative-pg/postgis:17
 FROM ${BASE_IMAGE}
 # FROM ghcr.io/cloudnative-pg/postgresql:${PG_MAJOR_VERSION}-standard-trixie
 
+ARG DEBIAN_CODENAME=bullseye
+ENV DEBIAN_CODENAME=${DEBIAN_CODENAME}
 ARG PG_MAJOR_VERSION
 ENV PG_MAJOR_VERSION=${PG_MAJOR_VERSION}
 ARG PGTAP_VERSION
@@ -148,10 +150,10 @@ RUN yes | /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh   \
 # Install pgx_uuidv7
 RUN apt-get update \
     && apt-get install -y wget \
-    && wget -O /tmp/pgx-uuidv7-${PG_MAJOR_VERSION}-amd64-linux-gnu.deb \
-        https://github.com/kaznak/pgx_uuidv7/releases/download/v${PGXUUIDV7_VERSION}/pgx-uuidv7-${PG_MAJOR_VERSION}-amd64-linux-gnu.deb \
-    && dpkg -i /tmp/pgx-uuidv7-${PG_MAJOR_VERSION}-amd64-linux-gnu.deb \
-    && rm /tmp/pgx-uuidv7-${PG_MAJOR_VERSION}-amd64-linux-gnu.deb \
+    && wget -O /tmp/pgx-uuidv7-${PG_MAJOR_VERSION}-amd64-${DEBIAN_CODENAME}-gnu.deb \
+        https://github.com/kaznak/pgx_uuidv7/releases/download/v${PGXUUIDV7_VERSION}/pgx-uuidv7-${PG_MAJOR_VERSION}-amd64-${DEBIAN_CODENAME}-gnu.deb \
+    && dpkg -i /tmp/pgx-uuidv7-${PG_MAJOR_VERSION}-amd64-${DEBIAN_CODENAME}-gnu.deb \
+    && rm /tmp/pgx-uuidv7-${PG_MAJOR_VERSION}-amd64-${DEBIAN_CODENAME}-gnu.deb \
     && apt-get remove -y wget \
     && apt-get autoremove -y \
     && apt-get clean \
