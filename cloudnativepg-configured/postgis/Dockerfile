@@ -68,7 +68,7 @@ RUN apt-get update  \
         wget clang   \
         build-essential libreadline-dev zlib1g-dev flex bison libxml2-dev libxslt-dev libssl-dev libxml2-utils xsltproc   \
         postgresql-server-dev-${PG_MAJOR_VERSION}    \
-        python3 python3-dev python3-setuptools python3-pip  \
+        python3 python3-dev python3-setuptools python3-pip libpython3-stdlib  \
     && wget https://github.com/pgsql-io/multicorn2/archive/refs/tags/v${MULTICORN2_VERSION}.tar.gz    \
     && tar -xvf v${MULTICORN2_VERSION}.tar.gz \
     && cd multicorn2-${MULTICORN2_VERSION}    \
