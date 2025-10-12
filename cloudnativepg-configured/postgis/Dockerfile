@@ -17,6 +17,8 @@ ARG PGROONGA_VERSION
 ENV PGROONGA_VERSION=${PGROONGA_VERSION}
 ARG PGXUUIDV7_VERSION
 ENV PGXUUIDV7_VERSION=${PGXUUIDV7_VERSION}
+ARG PGXBASEX_CODEC_VERSION
+ENV PGXBASEX_CODEC_VERSION=${PGXBASEX_CODEC_VERSION}
 
 USER root
 
@@ -163,7 +165,7 @@ RUN apt-get update \
 RUN apt-get update \
     && apt-get install -y wget \
     && wget -O /tmp/pgx-basex-codec-${PG_MAJOR_VERSION}-amd64-${DEBIAN_CODENAME}-gnu.deb \
-        https://github.com/kaznak/pgx_basex_codec/releases/download/v${PGXUUIDV7_VERSION}/pgx-basex-codec-${PG_MAJOR_VERSION}-amd64-${DEBIAN_CODENAME}-gnu.deb \
+        https://github.com/kaznak/pgx_basex_codec/releases/download/v${PGXBASEX_CODEC_VERSION}/pgx-basex-codec-${PG_MAJOR_VERSION}-amd64-${DEBIAN_CODENAME}-gnu.deb \
     && dpkg -i /tmp/pgx-basex-codec-${PG_MAJOR_VERSION}-amd64-${DEBIAN_CODENAME}-gnu.deb \
     && rm /tmp/pgx-basex-codec-${PG_MAJOR_VERSION}-amd64-${DEBIAN_CODENAME}-gnu.deb \
     && apt-get remove -y wget \
