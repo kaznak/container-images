@@ -25,7 +25,9 @@ Base image: [CloudNativePG PostGIS image](https://github.com/cloudnative-pg/post
 
 ### [pgmq](https://pgmq.github.io/pgmq/)([src](https://github.com/pgmq/pgmq))
 
-ワーカーからの使用方法:
+シンプルなメッセージキュー。
+
+ワーカーからの使用方法の例:
 
 1. メッセージを pop → メッセージに Visibility Timeout が設定される。
 2. 処理を開始
