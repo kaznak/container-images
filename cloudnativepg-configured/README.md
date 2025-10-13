@@ -23,6 +23,15 @@ Base image: [CloudNativePG PostGIS image](https://github.com/cloudnative-pg/post
 
 ### [pg_cron](https://github.com/citusdata/pg_cron)
 
+### [pgmq](https://pgmq.github.io/pgmq/)([src](https://github.com/pgmq/pgmq))
+
+ワーカーからの使用方法:
+
+1. メッセージを pop → メッセージに Visibility Timeout が設定される。
+2. 処理を開始
+3. 処理中に適宜 set_vt を実行して Visibility Timeout を延長
+4. 処理が完了したら delete もしくは archive でメッセージを無効化
+
 ### [pgTAP](https://pgtap.org/)
 
 ### [pldebugger](https://github.com/EnterpriseDB/pldebugger)
@@ -63,8 +72,6 @@ PostgreSQL用のprovenance（データ来歴）とuncertainty（不確実性）�
 
 ### [pgx-uuidv7](https://github.com/kaznak/pgx_uuidv7)
 
-### [pgx-basex-codec](https://github.com/kaznak/pgx_basex_codec)
-
 ### [uuidv47](https://github.com/stateless-me/uuidv47)
 
 uuidv7 を uuidv4 に相互変換する。変換過程は暗号学的に安全。
@@ -78,6 +85,8 @@ select uuid_to_uuid47('0199d898-69f3-7dc1-a5b5-22dac6d50e15'::uuid)::uuid;
 
 変換の為の鍵が設定されていないと変換が実行されない。
 内部的に uuid47 という専用のデータ型を使用しており、 uuid へキャストする事で、 uuidv4 に変換される。
+
+### [pgx-basex-codec](https://github.com/kaznak/pgx_basex_codec)
 
 ## How to use
 
