@@ -37,6 +37,10 @@ pgadmin4 のヘルプにデバッガの使い方についての記載がある�
 
 ### [multicorn2](https://github.com/pgsql-io/multicorn2)
 
+FDW 作成のためのフレームワーク。
+利用例は [python/multicorn](https://github.com/pgsql-io/multicorn2/tree/main/python/multicorn) を参照。
+pg17 のイメージでは、 `/usr/local/lib/python3.9/dist-packages/` 以下にインストールされる。
+
 ### [PGroonga](https://pgroonga.github.io/ja/)
 
 インストール:
@@ -59,7 +63,21 @@ PostgreSQL用のprovenance（データ来歴）とuncertainty（不確実性）�
 
 ### [pgx-uuidv7](https://github.com/kaznak/pgx_uuidv7)
 
+### [pgx-basex-codec](https://github.com/kaznak/pgx_basex_codec)
+
 ### [uuidv47](https://github.com/stateless-me/uuidv47)
+
+uuidv7 を uuidv4 に相互変換する。変換過程は暗号学的に安全。
+
+使用例:
+
+```
+SET uuid47.key = '0011223344556677:8899aabbccddeeff';
+select uuid_to_uuid47('0199d898-69f3-7dc1-a5b5-22dac6d50e15'::uuid)::uuid;
+```
+
+変換の為の鍵が設定されていないと変換が実行されない。
+内部的に uuid47 という専用のデータ型を使用しており、 uuid へキャストする事で、 uuidv4 に変換される。
 
 ## How to use
 

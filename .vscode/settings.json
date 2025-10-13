@@ -1,5 +1,6 @@
 {
     "cSpell.words": [
+        "basex",
         "cloudnativepg",
         "cnpg",
         "dockleignore",
@@ -11,6 +12,7 @@
         "pldbgapi",
         "postgis",
         "timescaledb",
-        "trixie"
+        "trixie",
+        "uuidv"
     ]
 }
