@@ -62,6 +62,23 @@ RUN apt-get update \
     && apt-get clean \
     && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
 
+# Install pgmq
+RUN apt-get update \
+    && apt-get install -y \
+        wget build-essential \
+        postgresql-server-dev-${PG_MAJOR_VERSION} \
+    && wget https://github.com/pgmq/pgmq/archive/refs/tags/v1.7.0.tar.gz    \
+    && tar -xvf v1.7.0.tar.gz \
+    && cd pgmq-1.7.0 \
+    && make \
+    && make install \
+    && cd .. \
+    && rm -rf v1.7.0.tar.gz pgmq-1.7.0 \
+    && apt-get remove -y wget build-essential postgresql-server-dev-${PG_MAJOR_VERSION} \
+    && apt-get autoremove -y \
+    && apt-get clean \
+    && echo /tmp/* /var/lib/apt/lists/* | xargs rm -rf
+
 # Install multicorn2
 RUN apt-get update  \
     && apt-get install -y   \
