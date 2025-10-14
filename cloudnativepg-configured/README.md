@@ -34,6 +34,8 @@ Base image: [CloudNativePG PostGIS image](https://github.com/cloudnative-pg/post
 3. 処理中に適宜 set_vt を実行して Visibility Timeout を延長
 4. 処理が完了したら delete もしくは archive でメッセージを無効化
 
+ワーカーの処理は冪等である必要がある。
+
 ### [pgTAP](https://pgtap.org/)
 
 ### [pldebugger](https://github.com/EnterpriseDB/pldebugger)
