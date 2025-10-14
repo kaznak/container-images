@@ -69,10 +69,10 @@ RUN apt-get update \
         postgresql-server-dev-${PG_MAJOR_VERSION} \
     && wget https://github.com/pgmq/pgmq/archive/refs/tags/v1.7.0.tar.gz    \
     && tar -xvf v1.7.0.tar.gz \
-    && cd pgmq-1.7.0 \
+    && cd pgmq-1.7.0/pgmq-extension \
     && make \
     && make install \
-    && cd .. \
+    && cd ../.. \
     && rm -rf v1.7.0.tar.gz pgmq-1.7.0 \
     && apt-get remove -y wget build-essential postgresql-server-dev-${PG_MAJOR_VERSION} \
     && apt-get autoremove -y \
