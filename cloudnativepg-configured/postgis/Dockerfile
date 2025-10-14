@@ -9,6 +9,8 @@ ARG PG_MAJOR_VERSION
 ENV PG_MAJOR_VERSION=${PG_MAJOR_VERSION}
 ARG PGTAP_VERSION
 ENV PGTAP_VERSION=${PGTAP_VERSION}
+ARG PGMQ_VERSION
+ENV PGMQ_VERSION=${PGMQ_VERSION}
 ARG PLDEBUGGER_VERSION
 ENV PLDEBUGGER_VERSION=${PLDEBUGGER_VERSION}
 ARG MULTICORN2_VERSION
@@ -67,13 +69,13 @@ RUN apt-get update \
     && apt-get install -y \
         wget build-essential \
         postgresql-server-dev-${PG_MAJOR_VERSION} \
-    && wget https://github.com/pgmq/pgmq/archive/refs/tags/v1.7.0.tar.gz    \
-    && tar -xvf v1.7.0.tar.gz \
-    && cd pgmq-1.7.0/pgmq-extension \
+    && wget https://github.com/pgmq/pgmq/archive/refs/tags/v${PGMQ_VERSION}.tar.gz    \
+    && tar -xvf v${PGMQ_VERSION}.tar.gz \
+    && cd pgmq-${PGMQ_VERSION}/pgmq-extension \
     && make \
     && make install \
     && cd ../.. \
-    && rm -rf v1.7.0.tar.gz pgmq-1.7.0 \
+    && rm -rf v${PGMQ_VERSION}.tar.gz pgmq-${PGMQ_VERSION} \
     && apt-get remove -y wget build-essential postgresql-server-dev-${PG_MAJOR_VERSION} \
     && apt-get autoremove -y \
     && apt-get clean \
