@@ -1,0 +1,6 @@
+DKL-LI-0001
+# - Avoid empty password
+# distroless image なので該当せず
+CIS-DI-0001
+# - Create a user for the container
+# k3s agent は containerd / kubelet / CNI / cgroups を扱うため原則 root 必須
