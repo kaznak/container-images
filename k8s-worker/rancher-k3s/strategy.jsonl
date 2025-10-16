@@ -1,3 +1,5 @@
 {
-    "name": "Kubernetes Worker"
+    "name": "Kubernetes Worker",
+    "imgname": "k8s-worker",
+    "platforms": ["linux/amd64"]
 }
