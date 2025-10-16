@@ -1,6 +1,7 @@
 {
     "name": "Kubernetes Worker",
     "imgname": "k8s-worker",
+    "variant": "rancher-k3s",
     "platforms": ["linux/amd64"],
     "tags": ["rancher-k3s-v1.34.1-k3s1"]
 }
