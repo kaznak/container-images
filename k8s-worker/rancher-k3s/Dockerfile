@@ -1,25 +1,20 @@
-
-# Pin to a known-good k3s release; adjust as needed.
+# Pin to the server-side version (example: v1.34.1-k3s1)
 ARG K3S_TAG=v1.34.1-k3s1
 FROM rancher/k3s:${K3S_TAG}
 
-# Minimal shell/tools for healthchecks & debugging
-RUN apk add --no-cache bash tini iproute2 iptables ethtool curl ca-certificates
+# entrypoint を実行可能でコピー（Docker 20.10+ の --chmod を使用）
+COPY --chmod=0755 entrypoint.sh /usr/local/bin/entrypoint.sh
 
-# Copy entrypoint
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
-
-# Data dirs (backed by volumes or bind mounts at runtime)
+# データディレクトリ（ランタイムで volume/bind 推奨）
 VOLUME ["/var/lib", "/var/log"]
 
-# Helpful defaults
+# 環境変数
 ENV K3S_DATA_DIR=/var/lib/rancher/k3s \
     CONTAINERD_ROOT=/var/lib/containerd \
     K3S_KUBECONFIG_MODE=644
 
-# Healthcheck: kubelet local healthz (kubelet listens 10248 by default)
+# curl 等が無いので、ファイル存在でヘルスチェック
 HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=5 \
-  CMD curl -sf http://127.0.0.1:10248/healthz || exit 1
+  CMD test -f /var/lib/rancher/k3s/agent/kubelet.pid || exit 1
 
-ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/entrypoint.sh"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
