@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+based=$(dirname "$0")
+
 # Ensure required envs
 : "${K3S_URL:?K3S_URL must be set, e.g. https://<server>:6443}"
 # Token via env or file
@@ -80,16 +82,16 @@ printf ">>> launching: k3s %q\n" "${args[@]//${TOKEN}/***}"
 # manifest into k3s' kubelet staticPodPath so the device plugin starts locally
 # without requiring cluster-admin RBAC or DaemonSet installation.
 STATIC_POD_DIR="/var/lib/rancher/k3s/agent/pod-manifests"
+PLUGIN_DIR="${based}/k8s-device-plugins"
 mkdir -p "$STATIC_POD_DIR"
 
 emit_static_pod() {
   local name="$1"; shift
-  local content="$1"; shift || true
+  local content="$PLUGIN_DIR/${name}.yaml"
   local path="$STATIC_POD_DIR/${name}.yaml"
   if [[ ! -f "$path" ]]; then
     echo ">>> enabling static device-plugin pod: $name -> $path"
-    printf '%s
-' "$content" > "$path"
+    cp "$content" "$path"
   else
     echo "=== static device-plugin pod already present: $path"
   fi
@@ -97,12 +99,11 @@ emit_static_pod() {
 
 if [[ -e /dev/nvidiactl || -e /dev/nvidia0 ]]; then
   emit_static_pod nvidia-gpu-device-plugin
-fi
 
 # AMD (ROCm) or Intel (DRI) detection via /dev/dri presence
 if [[ -d /dev/dri ]]; then
   # Intel GPU plugin example (comment out if using AMD)
-  emit_static_pod intel-gpu-device-plugin
+  emit_static_pod intel-gpu-device-plugin "${based}/k8s-device-plugins/intel-gpu-device-plugin.yaml"
 fi
 
 # exec k3s with all accumulated args

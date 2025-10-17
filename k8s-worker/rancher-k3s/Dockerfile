@@ -3,7 +3,9 @@ ARG K3S_TAG=v1.34.1-k3s1
 FROM rancher/k3s:${K3S_TAG}
 
 # entrypoint を実行可能でコピー（Docker 20.10+ の --chmod を使用）
-COPY --chmod=0755 entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN mkdir /entrypoint.d
+COPY --chmod=0755 entrypoint.sh /entrypoint.d/entrypoint.sh
+COPY k8s-device-plugins /entrypoint.d/k8s-device-plugins
 
 # データディレクトリ（ランタイムで volume/bind 推奨）
 VOLUME ["/var/lib", "/var/log"]
@@ -17,4 +19,4 @@ ENV K3S_DATA_DIR=/var/lib/rancher/k3s \
 HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=5 \
   CMD test -f /var/lib/rancher/k3s/agent/kubelet.pid || exit 1
 
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.d/entrypoint.sh"]
