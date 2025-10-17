@@ -3,5 +3,10 @@
     "imgname": "k8s-worker",
     "variant": "alpine-k0s",
     "platforms": ["linux/amd64"],
-    "tags": ["alpine-k0s-v1.34.1-k0s1"]
+    "tags": ["alpine-3.22.2-k0s-v1.34.1-k0s1-amd64"],
+    "buildArgs": {
+        "ALPINE_VERSION": "3.22.2",
+        "K0S_VERSION": "v1.34.1+k0s1",
+        "ARCH": "amd64"
+    }
 }
