@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  k3s-agent:
+    image: yourrepo/k3s-agent:latest
+    privileged: true
+    network_mode: host
+    cgroup: host
+    environment:
+      # - K3S_URL=https://<k3s-server-ip>:6443
+      # - K3S_TOKEN=<node-token>
+      - K3S_CNI=auto
+      - K3S_NODE_LABELS=node.kubernetes.io/instance-type=container
+      # - K3S_NODE_TAINTS=
+      # - K3S_EXTRA_ARGS=
+    volumes:
+      - /lib/modules:/lib/modules:ro
+      - k3s-agent-var-lib:/var/lib
+      - k3s-agent-var-log:/var/log
+      - /run:/run
+volumes:
+  k3s-agent-var-lib: {}
+  k3s-agent-var-log: {}
