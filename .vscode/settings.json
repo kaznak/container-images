@@ -7,12 +7,16 @@
         "elif",
         "Groonga",
         "imgname",
+        "nvcr",
+        "nvidiactl",
         "pgaudit",
         "pgrx",
         "pldbgapi",
         "postgis",
+        "rocm",
         "timescaledb",
         "trixie",
-        "uuidv"
+        "uuidv",
+        "vxlan"
     ]
 }
