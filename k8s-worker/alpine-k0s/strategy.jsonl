@@ -1,0 +1,7 @@
+{
+    "name": "Kubernetes Worker",
+    "imgname": "k8s-worker",
+    "variant": "alpine-k0s",
+    "platforms": ["linux/amd64"],
+    "tags": ["alpine-k0s-v1.34.1-k0s1"]
+}
