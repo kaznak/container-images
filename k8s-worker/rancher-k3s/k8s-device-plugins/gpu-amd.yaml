@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: amd-gpu-device-plugin
+  namespace: kube-system
+  labels:
+    app: amd-gpu-device-plugin
+spec:
+  hostNetwork: true
+  hostPID: true
+  priorityClassName: system-node-critical
+  tolerations:
+    - operator: Exists
+  containers:
+    - name: amd-gpu-device-plugin
+      image: rocm/k8s-device-plugin:latest
+      securityContext:
+        privileged: true
+        allowPrivilegeEscalation: false
+        capabilities:
+          drop: ["ALL"]
+      volumeMounts:
+        - name: kubelet-device-plugin-socket
+          mountPath: /var/lib/kubelet/device-plugins
+      resources: {}
+  volumes:
+    - name: kubelet-device-plugin-socket
+      hostPath: { path: /var/lib/kubelet/device-plugins }

@@ -42,7 +42,7 @@ case "${K3S_CNI}" in
   *)
     echo "WARN: Unknown K3S_CNI='${K3S_CNI}', falling back to 'auto'" >&2
     ;;
-fi
+esac
 
 # Labels/taints
 if [[ -n "${K3S_NODE_LABELS}" ]]; then
@@ -75,4 +75,35 @@ fi
 # Print final command (redacted token)
 printf ">>> launching: k3s %q\n" "${args[@]//${TOKEN}/***}"
 
+# --- GPU auto device-plugin as static Pod(s) ---------------------------------
+# If NVIDIA/AMD/Intel devices are detected on this node, drop a static Pod
+# manifest into k3s' kubelet staticPodPath so the device plugin starts locally
+# without requiring cluster-admin RBAC or DaemonSet installation.
+STATIC_POD_DIR="/var/lib/rancher/k3s/agent/pod-manifests"
+mkdir -p "$STATIC_POD_DIR"
+
+emit_static_pod() {
+  local name="$1"; shift
+  local content="$1"; shift || true
+  local path="$STATIC_POD_DIR/${name}.yaml"
+  if [[ ! -f "$path" ]]; then
+    echo ">>> enabling static device-plugin pod: $name -> $path"
+    printf '%s
+' "$content" > "$path"
+  else
+    echo "=== static device-plugin pod already present: $path"
+  fi
+}
+
+if [[ -e /dev/nvidiactl || -e /dev/nvidia0 ]]; then
+  emit_static_pod nvidia-gpu-device-plugin
+fi
+
+# AMD (ROCm) or Intel (DRI) detection via /dev/dri presence
+if [[ -d /dev/dri ]]; then
+  # Intel GPU plugin example (comment out if using AMD)
+  emit_static_pod intel-gpu-device-plugin
+fi
+
+# exec k3s with all accumulated args
 exec /bin/k3s "${args[@]}"
