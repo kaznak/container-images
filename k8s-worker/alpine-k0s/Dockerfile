@@ -1,5 +1,6 @@
 # 例: v1.34 系なら v1.34.x+k0s.y を指定
-ARG K0S_VERSION=v1.34.0+k0s.0
+ARG K0S_VERSION=v1.34.1+k0s.0
+ARG ARCH=amd64
 
 FROM alpine:3.20
 ARG K0S_VERSION
@@ -9,7 +10,7 @@ RUN apk add --no-cache bash iproute2 iptables ethtool curl ca-certificates tini 
 
 # k0s バイナリを取得（amd64想定。arm64なら URL を置き換え）
 RUN curl -fsSL -o /usr/local/bin/k0s \
-      "https://github.com/k0sproject/k0s/releases/download/${K0S_VERSION}/k0s-linux-amd64" \
+      "https://github.com/k0sproject/k0s/releases/download/${K0S_VERSION}/k0s-linux-${ARCH}" \
  && chmod +x /usr/local/bin/k0s
 
 # エントリポイント
