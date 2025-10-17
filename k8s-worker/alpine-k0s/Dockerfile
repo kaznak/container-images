@@ -8,7 +8,7 @@ ARG K0S_VERSION
 # 便利ツール（ヘルスチェックやデバッグ用）
 RUN apk add --no-cache bash iproute2 iptables ethtool curl ca-certificates tini util-linux coreutils
 
-# k0s バイナリを取得（amd64想定。arm64なら URL を置き換え）
+# k0s バイナリを取得
 RUN curl -fsSL -o /usr/local/bin/k0s \
       "https://github.com/k0sproject/k0s/releases/download/${K0S_VERSION}/k0s-linux-${ARCH}" \
  && chmod +x /usr/local/bin/k0s
