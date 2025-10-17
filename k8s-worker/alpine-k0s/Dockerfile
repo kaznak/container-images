@@ -2,7 +2,7 @@
 ARG K0S_VERSION=v1.34.1+k0s.0
 ARG ARCH=amd64
 
-FROM alpine:3.20
+FROM alpine:3.22.2
 ARG K0S_VERSION
 
 # 便利ツール（ヘルスチェックやデバッグ用）
@@ -10,7 +10,7 @@ RUN apk add --no-cache bash iproute2 iptables ethtool curl ca-certificates tini 
 
 # k0s バイナリを取得
 RUN curl -fsSL -o /usr/local/bin/k0s \
-      "https://github.com/k0sproject/k0s/releases/download/${K0S_VERSION}/k0s-linux-${ARCH}" \
+      "https://github.com/k0sproject/k0s/releases/download/${K0S_VERSION}/k0s-${K0S_VERSION}-${ARCH}" \
  && chmod +x /usr/local/bin/k0s
 
 # エントリポイント
