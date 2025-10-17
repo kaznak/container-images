@@ -3,7 +3,11 @@ ARG K0S_VERSION=v1.34.1+k0s.0
 ARG ARCH=amd64
 
 FROM alpine:3.22.2
-ARG K0S_VERSION
+
+ARG K0S_VERSION=v1.34.1+k0s.0
+ENV K0S_VERSION=${K0S_VERSION}
+ARG ARCH=amd64
+ENV ARCH=${ARCH}
 
 # 便利ツール（ヘルスチェックやデバッグ用）
 RUN apk add --no-cache bash iproute2 iptables ethtool curl ca-certificates tini util-linux coreutils
