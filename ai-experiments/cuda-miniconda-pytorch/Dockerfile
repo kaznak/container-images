@@ -3,13 +3,7 @@ ARG BASE_IMAGE=nvidia/cuda:12.9.1-cudnn-runtime-ubuntu22.04
 
 FROM ${BASE_IMAGE}
 
-ARG USER_ID=1000
-ARG USER_NAME=user
-ARG GROUP_NAME=${USER_NAME}
 ARG PYTHON_ENV_SCRIPT
-ENV USER_ID=${USER_ID}
-ENV USER_NAME=${USER_NAME}
-ENV GROUP_NAME=${GROUP_NAME}
 ENV PYTHON_ENV_SCRIPT=${PYTHON_ENV_SCRIPT}
 
 # 基本ツール
@@ -23,27 +17,26 @@ RUN wget -q -O /tmp/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-
  && bash /tmp/miniconda.sh -b -p /opt/conda \
  && rm /tmp/miniconda.sh
 ENV PATH="/opt/conda/bin:${PATH}"
-
-#########################################################################################################
-ENV WORKSPACE=/workspace
-ENV CONDA_DIR=/opt/conda
-
-VOLUME ${WORKSPACE}
-
-RUN useradd -m -u ${USER_ID} ${USER_NAME} && mkdir -p ${WORKSPACE} ${CONDA_DIR} && \
-    chown -R ${USER_NAME}:${GROUP_NAME} ${WORKSPACE} ${CONDA_DIR}
-
-ENV HF_HOME=${WORKSPACE}/.cache/huggingface
-ENV TRANSFORMERS_CACHE=${WORKSPACE}/.cache/huggingface/transformers
-
-WORKDIR ${WORKSPACE}
-USER ${USER_NAME}
-
 RUN yes | conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main    \
     && yes | conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r    \
     && conda init
 
+# SSH サーバー設定
+RUN echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config  \
+    && echo 'PasswordAuthentication no' >> /etc/ssh/sshd_config
+
+#########################################################################################################
+ENV WORKSPACE=/workspace
+ENV CONDA_DIR=/opt/conda
+ENV HF_HOME=${WORKSPACE}/.cache/huggingface
+ENV TRANSFORMERS_CACHE=${WORKSPACE}/.cache/huggingface/transformers
+
+WORKDIR ${WORKSPACE}
+SHELL ["/bin/bash", "-i", "-c"]
+
 COPY ${PYTHON_ENV_SCRIPT} ${WORKSPACE}/environment_setup.sh
 RUN bash -vxe ${WORKSPACE}/environment_setup.sh
 
-CMD ["/bin/bash"]
+# SSH 設定
+EXPOSE 22
+CMD ["/usr/sbin/sshd", "-D"]
