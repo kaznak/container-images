@@ -15,6 +15,6 @@ pip install --no-cache-dir -q git+https://github.com/dsbowen/strong_reject.git@e
 pip install --no-cache-dir -q dotenv==0.9.9
 pip install --no-cache-dir -q pyyaml==6.0.2
 
-conda clean -afy
+yes | conda clean -af
 
 # git clone https://github.com/tkr-research/twinbreak.git
