@@ -4,6 +4,8 @@
         "cloudnativepg",
         "cnpg",
         "coreutils",
+        "cuda",
+        "cudnn",
         "dockleignore",
         "dotenv",
         "elif",
