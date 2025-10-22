@@ -1,0 +1,10 @@
+{
+    "name": "Python CUDA Miniconda PyTorch",
+    "imgname": "ai-experiments",
+    "variant": "cuda-miniconda-pytorch",
+    "platforms": ["linux/amd64"],
+    "tags": ["twinbreak"],
+    "build_args": {
+        "PYTHON_ENV_SCRIPT": ".miniconda-envs/twinbreak.sh"
+    }
+}
