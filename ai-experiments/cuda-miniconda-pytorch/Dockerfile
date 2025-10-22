@@ -19,9 +19,8 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Miniconda
-RUN wget -O /tmp/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
+RUN wget -q -O /tmp/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
  && bash /tmp/miniconda.sh -b -p /opt/conda \
- && yes | /opt/conda/bin/conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main  \
  && rm /tmp/miniconda.sh
 ENV PATH="/opt/conda/bin:${PATH}"
 
@@ -39,6 +38,8 @@ ENV TRANSFORMERS_CACHE=${WORKSPACE}/.cache/huggingface/transformers
 
 WORKDIR ${WORKSPACE}
 USER ${USER_NAME}
+
+RUN yes | conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
 
 COPY ${PYTHON_ENV_SCRIPT} ${WORKSPACE}/environment_setup.sh
 RUN bash -vxe ${WORKSPACE}/environment_setup.sh
