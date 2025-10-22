@@ -39,7 +39,8 @@ ENV TRANSFORMERS_CACHE=${WORKSPACE}/.cache/huggingface/transformers
 WORKDIR ${WORKSPACE}
 USER ${USER_NAME}
 
-RUN yes | conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
+RUN yes | conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main    \
+    yes | conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
 
 COPY ${PYTHON_ENV_SCRIPT} ${WORKSPACE}/environment_setup.sh
 RUN bash -vxe ${WORKSPACE}/environment_setup.sh
