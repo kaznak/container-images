@@ -17,8 +17,8 @@ RUN wget -q -O /tmp/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-
  && bash /tmp/miniconda.sh -b -p /opt/conda \
  && rm /tmp/miniconda.sh
 ENV PATH="/opt/conda/bin:${PATH}"
-RUN yes | conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main    \
-    && yes | conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r    \
+RUN conda -y tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main    \
+    && conda -y tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r    \
     && conda init
 
 # SSH サーバー設定
@@ -40,4 +40,3 @@ RUN bash -vxe ${WORKSPACE}/environment_setup.sh
 # SSH 設定
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
-

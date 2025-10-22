@@ -3,7 +3,7 @@ set -e
 
 source /opt/conda/etc/profile.d/conda.sh
 
-conda create --name twinbreak python=3.10
+conda -q create --name twinbreak python=3.10
 conda activate twinbreak
 
 # CUDA はベースイメージから 12.9
