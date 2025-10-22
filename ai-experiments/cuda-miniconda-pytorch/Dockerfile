@@ -19,9 +19,13 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Miniconda
-RUN wget -O /tmp/miniconda.sh https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
- && bash /tmp/miniconda.sh -b -p /opt/conda \
- && rm /tmp/miniconda.sh
+ENV CONDA_DIR=/opt/conda
+RUN MINICONDA_VERSION=py39_24.3.0-0 \
+    wget -O /tmp/miniconda.tar.gz   \
+    https://repo.anaconda.com/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.tar.gz \
+    && mkdir -p ${CONDA_DIR} \
+    && tar -xzf /tmp/miniconda.tar.gz -C ${CONDA_DIR} --strip-components=1 \
+    && rm /tmp/miniconda.tar.gz
 ENV PATH="/opt/conda/bin:${PATH}"
 
 #########################################################################################################
