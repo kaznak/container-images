@@ -39,7 +39,7 @@ ENV TRANSFORMERS_CACHE=${WORKSPACE}/.cache/huggingface/transformers
 WORKDIR ${WORKSPACE}
 USER ${USER_NAME}
 
-COPY ${PYTHON_ENV_SCRIPT} ${WORKSPACE}
-RUN bash -vxe ${WORKSPACE}/${PYTHON_ENV_SCRIPT}
+COPY ${PYTHON_ENV_SCRIPT} ${WORKSPACE}/environment_setup.sh
+RUN bash -vxe ${WORKSPACE}/environment_setup.sh
 
 CMD ["/bin/bash"]
