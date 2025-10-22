@@ -40,3 +40,4 @@ RUN bash -vxe ${WORKSPACE}/environment_setup.sh
 # SSH 設定
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
+
