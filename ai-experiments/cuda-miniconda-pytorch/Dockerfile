@@ -1,11 +1,16 @@
 # デフォルト CUDA + cuDNN ランタイム（Ubuntu 22.04）
 ARG BASE_IMAGE=nvidia/cuda:12.9.1-cudnn-runtime-ubuntu22.04
+
+FROM ${BASE_IMAGE}
+
 ARG USER_ID=1000
 ARG USER_NAME=user
 ARG GROUP_NAME=${USER_NAME}
 ARG PYTHON_ENV_SCRIPT
-
-FROM ${BASE_IMAGE}
+ENV USER_ID=${USER_ID}
+ENV USER_NAME=${USER_NAME}
+ENV GROUP_NAME=${GROUP_NAME}
+ENV PYTHON_ENV_SCRIPT=${PYTHON_ENV_SCRIPT}
 
 # 基本ツール
 RUN apt-get update && apt-get install -y \
